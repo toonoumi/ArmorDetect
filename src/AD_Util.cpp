@@ -1,11 +1,16 @@
 //
 //  AD_Util.h
 //  ArmorDetect
-//
-//  Created by Jason Lu on 10/12/17.
+//														Dates
+//  Created by: Jason Lu			10/12/17.
+//			Edited: Frank Eyenga 	12/17/2017 
 //
 
+
+#ifdef DEBUG
 #include <iostream>
+#endif
+ 
 #include "AD_Util.h"
 
 using std::pair;

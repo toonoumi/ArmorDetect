@@ -2,4 +2,4 @@
 build/
 
 # Ignore CMakeList.txt
-./**/CMakeLists.txt
+/**/CMakeLists.txt

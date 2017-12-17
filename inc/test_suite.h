@@ -1,8 +1,6 @@
 #pragma once
 #include "AD_Util.h"
 
-void checkArgs(int argc, char* const argv[]);
-
 // Test functions with image files or video stream
 void test_FindBlueRange(char* images[], int sz);
 void test_FindBlueRange(int id);

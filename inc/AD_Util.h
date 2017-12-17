@@ -1,19 +1,22 @@
 //
 //  AD_Util.h
 //  ArmorDetect
+//														Dates
+//  Created by: Jason Lu			10/12/17.
+//			Edited: Frank Eyenga 	12/17/2017 
 //
-//  Created by Jason Lu on 10/12/17.
-//
+
 
 #ifndef AD_Util_h
 #define AD_Util_h
+#include <vector>
 #include <utility>
 #include "opencv2/opencv.hpp"
 #include "opencv2/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/imgproc.hpp"
-//#include <vector>
+
 
 
 #define BLUE_HUE_LOW 		105
