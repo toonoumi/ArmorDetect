@@ -1,0 +1,5 @@
+# Ignore cmake output
+build/
+
+# Ignore CMakeList.txt
+./**/CMakeLists.txt
