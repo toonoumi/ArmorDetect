@@ -1,5 +1,0 @@
-include_directories(../inc)
-add_executable(ArmorDetect main.cpp AD_Util.cpp)
-find_package(OpenCV REQUIRED)
-find_package(Qt5Core REQUIRED)
-target_link_libraries( ArmorDetect ${OpenCV_LIBS} )
