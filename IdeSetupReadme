@@ -1,0 +1,12 @@
+Dear RoboGrinder teammembers, welcome!
+
+If you are trying to setup openCV with Xcode:
+1.  Download the latest openCV library from Github
+2.  Compile the source code with Cmake
+3.  Watch this video and follow the instruction:
+      https://www.youtube.com/watch?time_continue=148&v=XJeP1juuHHY
+      
+Good luck!
+
+Youming Qin
+01/29/2018
