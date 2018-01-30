@@ -1,4 +1,4 @@
-#ArmorDetect
+# ArmorDetect
 
 Authored by RoboGrinder's Computer Vision sub-team.
 
