@@ -17,7 +17,7 @@ using std::pair;
 using std::vector;
 using std::array;
 
-typedef vector<Mat> Matvector;
+typedef std::vector<Mat> Matvector;
 
 AD_Util::AD_Util(){}
 
@@ -39,24 +39,15 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 {
 	// Previous HSVRange values that worked
 	static vector<HSVRange> previous;
-	Matvector frames_hsv;
-	
- 	// blur image to reduce false positives then covert image to HSV format
-	for (auto& frame : frames)
-	{
-		Mat tmp;
-		GaussianBlur(frame, tmp, Size(9, 9), 3, 3);
-		cvtColor(tmp, tmp, COLOR_BGR2HSV);
-		frames_hsv.push_back(tmp);
-	}	
-										 
+	// Convert to HSV
+	Matvector frames_hsv (bgrToHSV(frames, true));
+									 
 	// Try previously successful ranges first
 	for (const auto& range : previous)
 	{
-		array<Matvector, 2> results = testFrames(range, frames);
-		Matvector passed ();
+		vector<Matvector> results = testFrames(range, frames);
 	
-		if (results[0].size() >= (frames.size() * FRAMES_THRES))
+		if (results.front().size() >= (frames.size() * FRAMES_THRES))
 			return pair<HSVRange, bool>(range, true);
 	}
 
@@ -78,8 +69,8 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 
 	while (!calibrated && ( cand.LowS > BLUE_SAT_MIN || cand.LowV > BLUE_VAL_MIN ))
 	{ 
-		array<Matvector, 2> results = testFrames(cand, test_frames);
-		passed.insert(passed.end(), results[0].begin(), results[0].end());
+		vector<Matvector> results (testFrames(cand, test_frames));
+		passed.insert(passed.end(), results.front().begin(), results.front().end());
 		
 		#ifdef DEBUG
 			std::cout<< "--Pass #" << pass++ << "\n";					
@@ -96,7 +87,7 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 			// Reduce value by predetermined percentage
 			cand.LowS -= TUNER_MEDIUM(255);
 			cand.LowV -= TUNER_COARSE(255);
-			test_frames = results[1];
+			test_frames = results.back();
 		} 
 		
 		#ifdef DEBUG
@@ -114,11 +105,43 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 	return pair<HSVRange, bool>(cand, calibrated);
 }
 
-array<Matvector,2> AD_Util::testFrames(const HSVRange& range, const Matvector& frames)
+Matvector AD_Util::threshMask(Matvector frames, HSVRange range)
 {
+	Matvector masks (bgrToHSV(masks, true));
+		
+	for (const auto& frame : frames)
+	{
+		Mat mask;
+		Scalar lower (range.LowH, range.LowS, range.LowV);
+		Scalar upper (range.HighH, range.HighS, range.HighV);			
+		inRange(frame, lower, upper, mask);
+		masks.push_back(mask);	
+	}
+	
+	return masks;
+}
 
+Matvector AD_Util::bgrToHSV(Matvector& frames, bool blur)
+{
+	Matvector frames_hsv;
+	
+	for (auto& frame : frames)
+	{
+		Mat tmp;
+
+		if (blur)
+			GaussianBlur(frame, tmp, Size(9, 9), 3, 3);
+		
+		cvtColor(tmp, tmp, COLOR_BGR2HSV);
+		frames_hsv.push_back(tmp);
+	}
+	
+	return frames_hsv;
+}
+
+vector<Matvector> AD_Util::testFrames(const HSVRange& range, const Matvector& frames)
+{
 	Matvector passed, failed;
-	array<Matvector, 2> results;
 		
 	for (const auto& frame : frames)
 		{
@@ -174,7 +197,7 @@ array<Matvector,2> AD_Util::testFrames(const HSVRange& range, const Matvector& f
 			#endif							
 		}
 		
-		return {passed, failed};
+		return vector<Matvector>({passed, failed});
 
 }
 /* AD_Util_cpp */

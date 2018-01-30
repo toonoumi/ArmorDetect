@@ -12,6 +12,9 @@
 
 using std::cout;
 
+void checkArgs(int argc, char* const argv[]);
+
+
 int main(int argc, char* argv[])
 {
 	checkArgs(argc, argv);
