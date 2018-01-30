@@ -1,5 +1,0 @@
-/home/tank/Programming/gitRepos/ArmorDetect/build/CMakeFiles/rebuild_cache.dir
-/home/tank/Programming/gitRepos/ArmorDetect/build/CMakeFiles/edit_cache.dir
-/home/tank/Programming/gitRepos/ArmorDetect/build/src/CMakeFiles/rebuild_cache.dir
-/home/tank/Programming/gitRepos/ArmorDetect/build/src/CMakeFiles/edit_cache.dir
-/home/tank/Programming/gitRepos/ArmorDetect/build/src/CMakeFiles/ArmorDetect.dir
