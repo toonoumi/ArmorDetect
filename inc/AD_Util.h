@@ -159,7 +159,7 @@ public:
    * @return
    *      The correct HSV range to identify red objects
    */
-  HSVRange find_Red_HSVRange(std::vector<Mat> frames);
+	std::pair<HSVRange, bool> find_Red_HSVRange(std::vector<Mat> frames);
 
   /**
    * This will find correct HSV range for identifying the concept "BLUE objects"
@@ -186,7 +186,7 @@ public:
    * @return
    *      A vector of binary Mats that resulted from the threshold operation
    */
-  std::vector<Mat> threshMask(std::vector<Mat> frames, HSVRange range);
+  std::vector<Mat> threshMask(std::vector<Mat>& frames, HSVRange& range);
 
 
 private:

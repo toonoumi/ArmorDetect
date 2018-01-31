@@ -33,7 +33,7 @@ float AD_Util::find_Exposure_Adjustment(Matvector frames){}
 
 float AD_Util::find_Temperature_Adjustment(Matvector frames){}
 
-HSVRange AD_Util::find_Red_HSVRange(Matvector frames){}
+std::pair<HSVRange, bool> AD_Util::find_Red_HSVRange(Matvector frames){}
 
 std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 {
@@ -105,7 +105,7 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 	return pair<HSVRange, bool>(cand, calibrated);
 }
 
-Matvector AD_Util::threshMask(Matvector frames, HSVRange range)
+Matvector AD_Util::threshMask(Matvector& frames, HSVRange& range)
 {
 	Matvector masks (bgrToHSV(masks, true));
 		
