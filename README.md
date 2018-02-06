@@ -24,5 +24,8 @@ If you are trying to setup openCV with Xcode:
 2.  Compile the source code with Cmake
 3.  Watch this video and follow the instruction:
       https://www.youtube.com/watch?time_continue=148&v=XJeP1juuHHY
-4.  Note, do not include -lopencv_ts for additional linker flags
+4.  The default location of the header files is: /usr/local/include
+The default location of the library files is : /usr/local/lib
+The additional linker flags are: -lopencv_calib3d -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml -lopencv_objdetect -lopencv_photo -lopencv_shape -lopencv_stitching -lopencv_superres -lopencv_video -lopencv_videoio -lopencv_videostab
+    Note, do not include -lopencv_ts for additional linker flags
 5.  If you have further questions, please contact Youming Qin at qyoumi9@vt.edu. GL HF
