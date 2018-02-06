@@ -24,4 +24,5 @@ If you are trying to setup openCV with Xcode:
 2.  Compile the source code with Cmake
 3.  Watch this video and follow the instruction:
       https://www.youtube.com/watch?time_continue=148&v=XJeP1juuHHY
-
+4.  Note, do not include -lopencv_ts for additional linker flags
+5.  If you have further questions, please contact Youming Qin at qyoumi9@vt.edu. GL HF
