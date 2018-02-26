@@ -5,6 +5,9 @@ Authored by RoboGrinder's Computer Vision sub-team.
 The repository contains sofware that will be used to creatd an autonomous robot for the RoboMaster competition. The robot, dubbed the "Armor Bot", must detect and fire upon enemy robots in the arena. As stated in the 2018 Competition Rules, it cannot be manualy operated.
 
 OpenCV is leveraged in the development of the CV application.
+## Effect and Results
+
+Go ahead and check the repository for image and demonstration for the results and outcome.
 
 ## Installing OpenCV
 
