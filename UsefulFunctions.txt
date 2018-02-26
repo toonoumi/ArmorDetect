@@ -1,0 +1,10 @@
+findContours
+Canny
+cvtColor
+split
+equalizedHist
+merge
+inRange
+getStructuringElement
+morphologyEx
+fitEllipse
