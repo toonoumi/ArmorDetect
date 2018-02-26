@@ -2,9 +2,9 @@
 # Custom rules for ALL_BUILD
 .SUFFIXES: 
 all: \
-	/Users/kevincat/Documents/Projects/ArmorDetect/build/CMakeFiles/ALL_BUILD
+	/Users/jasonlu/Documents/Projects/ArmorDetect/build/CMakeFiles/ALL_BUILD
 
 
-/Users/kevincat/Documents/Projects/ArmorDetect/build/CMakeFiles/ALL_BUILD: 
+/Users/jasonlu/Documents/Projects/ArmorDetect/build/CMakeFiles/ALL_BUILD: 
 	echo ""
 	echo Build\ all\ projects
