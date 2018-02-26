@@ -18,15 +18,25 @@
 #include "opencv2/imgproc.hpp"
 
 
+// Default values for Blue and Red HSV range
+#define BLUE_HUE_LOW   	75
+#define BLUE_HUE_HIGH	130
+#define BLUE_SAT_LOW   	200
+#define BLUE_SAT_HIGH	255
+#define BLUE_VAL_LOW	200
+#define BLUE_VAL_HIGH 	255
+#define BLUE_SAT_MIN   	85
+#define BLUE_VAL_MIN   	50
 
-#define BLUE_HUE_LOW   105
-#define BLUE_HUE_HIGH	125
-#define BLUE_SAT_LOW   200
-#define BLUE_SAT_HIGH       255
-#define BLUE_VAL_LOW   200
-#define BLUE_VAL_HIGH  255
-#define BLUE_SAT_MIN   85
-#define BLUE_VAL_MIN   50
+#define RED_HUE_LOW   	0
+#define RED_HUE_HIGH	8
+#define RED_SAT_LOW   	200
+#define RED_SAT_HIGH    255
+#define RED_VAL_LOW   	200
+#define RED_VAL_HIGH  	255
+#define RED_SAT_MIN   	85
+#define RED_VAL_MIN   	50
+
 #define U_FLOOR(x)   ( (x) < 0 ? 0 : (x) )
 #define U8_CEILING(x)  ( (x) > 255 ? 255 : (x) )
 #define ROI_CONSTANT   3

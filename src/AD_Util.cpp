@@ -33,7 +33,109 @@ float AD_Util::find_Exposure_Adjustment(Matvector frames){}
 
 float AD_Util::find_Temperature_Adjustment(Matvector frames){}
 
-std::pair<HSVRange, bool> AD_Util::find_Red_HSVRange(Matvector frames){}
+std::pair<HSVRange, bool> AD_Util::find_Red_HSVRange(Matvector frames)
+{
+	// Previous HSVRange values that worked
+	static vector<HSVRange> previous;
+	// Convert to HSV
+	Matvector frames_hsv (bgrToHSV(frames, true));
+									 
+	// Try previously successful ranges first
+	for (const auto& range : previous)
+	{
+		vector<Matvector> results = testFrames(range, frames);
+	
+		if (results.front().size() >= (frames.size() * FRAMES_THRES))
+			return pair<HSVRange, bool>(range, true);
+	}
+
+
+	// Initialize default ranges to start with
+	HSVRange cand_low {.LowH = RED_HUE_LOW, .HighH = RED_HUE_HIGH, 
+				   		 .LowS = RED_SAT_LOW, .HighS = RED_SAT_HIGH, 
+				   		 .LowV = RED_VAL_LOW, .HighV = RED_VAL_HIGH };
+
+	HSVRange cand_upp {.LowH = 172, .HighH = 180, 
+				   		 .LowS = RED_SAT_LOW, .HighS = RED_SAT_HIGH, 
+				   		 .LowV = RED_VAL_LOW, .HighV = RED_VAL_HIGH };
+								 
+	Matvector test_frames (frames_hsv), passed, failed;
+	bool calibrated = false;
+	
+	#ifdef DEBUG
+		std::cout<< "starting range finder\n\n";
+		std::cout<< "# of Frames: " << frames.size() << "\n";
+		std::cout<< "# to pass: " << frames.size() * FRAMES_THRES << "\n";
+		int pass = 0;
+	#endif
+
+	// Try to lower end of the spectrum
+	while (!calibrated && ( cand_low.LowS > RED_SAT_MIN || cand_low.LowV > RED_VAL_MIN ))
+	{ 
+		vector<Matvector> results_low (testFrames(cand_low, test_frames));
+		passed.insert(passed.end(), results_low.front().begin(), results_low.front().end());
+		
+		#ifdef DEBUG
+			std::cout<< "--Pass #" << pass++ << "\n";					
+			std::cout<< "--Passing frames: " << passed.size() << "\n";
+		#endif
+		
+		if (passed.size() >= (frames.size() * FRAMES_THRES))
+		{ 
+			calibrated = true; 
+			previous.push_back(cand_low);
+		}
+		else
+		{
+			// Reduce value by predetermined percentage
+			cand_low.LowS -= TUNER_MEDIUM(255);
+			cand_low.LowV -= TUNER_COARSE(255);
+			test_frames = results_low.back();
+		} 
+		
+		#ifdef DEBUG
+			std::cout<< "--Low sat: "  << cand_low.LowS << "\n";
+			std::cout<< "--Low val: " << cand_low.LowV << "\n\n";
+		#endif
+																			
+	}									
+	
+	if(calibrated)
+		return pair<HSVRange, bool>(cand_low, calibrated);
+		
+	// Try upper end of sprectrum
+	while (!calibrated && ( cand_upp.LowS > RED_SAT_MIN || cand_upp.LowV > RED_VAL_MIN ))
+	{ 
+		vector<Matvector> results_upp (testFrames(cand_upp, test_frames));
+		passed.insert(passed.end(), results_upp.front().begin(), results_upp.front().end());
+		
+		#ifdef DEBUG
+			std::cout<< "--Pass #" << pass++ << "\n";					
+			std::cout<< "--Passing frames: " << passed.size() << "\n";
+		#endif
+		
+		if (passed.size() >= (frames.size() * FRAMES_THRES))
+		{ 
+			calibrated = true; 
+			previous.push_back(cand_upp);
+		}
+		else
+		{
+			// Reduce value by predetermined percentage
+			cand_upp.LowS -= TUNER_MEDIUM(255);
+			cand_upp.LowV -= TUNER_COARSE(255);
+			test_frames = results_upp.back();
+		} 
+		
+		#ifdef DEBUG
+			std::cout<< "--Low sat: "  << cand_upp.LowS << "\n";
+			std::cout<< "--Low val: " << cand_upp.LowV << "\n\n";
+		#endif
+																			
+	}
+								  
+	return pair<HSVRange, bool>(cand_upp, calibrated);
+}
 
 std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 {
@@ -96,11 +198,7 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 		#endif
 																			
 	}									
-	
-	#ifdef DEBUG
-			destroyWindow("Mask");
-			destroyWindow("Image (HSV)");
-		#endif 
+	 
 									  
 	return pair<HSVRange, bool>(cand, calibrated);
 }
@@ -196,6 +294,11 @@ vector<Matvector> AD_Util::testFrames(const HSVRange& range, const Matvector& fr
 				waitKey(0);		
 			#endif							
 		}
+		
+		#ifdef DEBUG
+			destroyWindow("Mask");
+			destroyWindow("Image (HSV)");
+		#endif
 		
 		return vector<Matvector>({passed, failed});
 
