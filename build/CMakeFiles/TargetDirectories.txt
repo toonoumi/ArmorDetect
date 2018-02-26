@@ -1,3 +1,0 @@
-/Users/jasonlu/Documents/Projects/ArmorDetect/build/CMakeFiles/ArmorDetect.dir
-/Users/jasonlu/Documents/Projects/ArmorDetect/build/CMakeFiles/ALL_BUILD.dir
-/Users/jasonlu/Documents/Projects/ArmorDetect/build/CMakeFiles/ZERO_CHECK.dir
