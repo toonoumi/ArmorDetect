@@ -16,5 +16,10 @@ std::pair<HSVRange, bool> calibrate(VideoCapture& cam, bool color);
 /*
  Functions for testing threshMask
  */
+ 
+ // Test with images
+void test_threshMask(char* images[], int sz, HSVRange& range);
+
 // Test with camera
-void test_threshMask(int id);
+void test_threshMask(int id, HSVRange& range);
+

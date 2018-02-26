@@ -20,7 +20,7 @@
 
 
 #define BLUE_HUE_LOW   105
-#define BLUE_HUE_HIGH       125
+#define BLUE_HUE_HIGH	125
 #define BLUE_SAT_LOW   200
 #define BLUE_SAT_HIGH       255
 #define BLUE_VAL_LOW   200

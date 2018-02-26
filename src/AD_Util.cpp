@@ -107,9 +107,9 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 
 Matvector AD_Util::threshMask(Matvector& frames, HSVRange& range)
 {
-	Matvector masks (bgrToHSV(masks, true));
+	Matvector frames_hsv (bgrToHSV(frames, true)), masks;
 		
-	for (const auto& frame : frames)
+	for (const auto& frame : frames_hsv)
 	{
 		Mat mask;
 		Scalar lower (range.LowH, range.LowS, range.LowV);

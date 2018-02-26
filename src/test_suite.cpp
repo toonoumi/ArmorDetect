@@ -20,14 +20,14 @@ using std::cout;
 using std::array;
 using std::pair;
 
-void test_FindHSVRange(char* images[], int sz, bool color)
+void test_FindHSVRange(char* images[], int sz, bool isRed)
 {
   vector<Mat> images_bgr;
 
   for (unsigned int i = 0; i < sz; i++)
   {
       // Read in image
-      Mat img, img_hsv;
+      Mat img;
       img = imread(images[i], IMREAD_COLOR);
 
       if (!img.data)
@@ -42,10 +42,10 @@ void test_FindHSVRange(char* images[], int sz, bool color)
 
   // Calibrate HSV threshhold
   pair<HSVRange, bool> hsv_range;
-  if (color)
-      hsv_range = AD_Util().find_Blue_HSVRange(images_bgr);
-  else
+  if (isRed)
       hsv_range = AD_Util().find_Red_HSVRange(images_bgr);
+  else
+      hsv_range = AD_Util().find_Blue_HSVRange(images_bgr);
 
   if (!hsv_range.second) cout << "Calibration Failed\n";
 
@@ -71,7 +71,7 @@ void test_FindHSVRange(char* images[], int sz, bool color)
   }
 }
 
-void test_FindHSVRange(int id, bool color)
+void test_FindHSVRange(int id, bool isRed)
 {
   VideoCapture cam;
 
@@ -129,7 +129,7 @@ void test_FindHSVRange(int id, bool color)
       }
       else if (c == 32)
       {
-          pair<HSVRange, bool> hsv_range = calibrate(cam, color);
+          pair<HSVRange, bool> hsv_range = calibrate(cam, isRed);
           if (hsv_range.second)
           {
               cout << "Calibration Succeeded\n";
@@ -144,7 +144,7 @@ void test_FindHSVRange(int id, bool color)
 
 }
 
-pair<HSVRange, bool> calibrate(VideoCapture& cam, bool color)
+pair<HSVRange, bool> calibrate(VideoCapture& cam, bool isRed)
 {
   cout << "Place a blue or red object in the center of the screen\n";
   cout << "Calibrating...\n";
@@ -160,11 +160,11 @@ pair<HSVRange, bool> calibrate(VideoCapture& cam, bool color)
       frames.push_back(next_frame);
   }
 
-  if (color)
-      return AD_Util().find_Blue_HSVRange(frames);
+  if (isRed)
+        return AD_Util().find_Red_HSVRange(frames);
 
-  return AD_Util().find_Red_HSVRange(frames);
 
+  return AD_Util().find_Blue_HSVRange(frames);
 }
 
 bool testImage(const Mat& roi, const HSVRange& range, float thres)
@@ -189,7 +189,41 @@ bool testImage(const Mat& roi, const HSVRange& range, float thres)
   return ( pixelsfound >= (roi.total() * thres)) ? true : false;
 }
 
-void test_threshMask(int id)
+void test_threshMask(char* images[], int sz, HSVRange& range)
+{
+	vector<Mat> images_bgr;
+
+	for (unsigned int i = 0; i < sz; i++)
+	{
+	  // Read in image
+	  Mat img;
+	  img = imread(images[i], IMREAD_COLOR);
+
+	  if (!img.data)
+	  {
+		  cout << "Could not find or open \"";
+		  cout << images[i] << "\"\n";
+		  std::exit(EXIT_FAILURE);
+	  }
+
+	  images_bgr.push_back(img);
+	}
+	
+	vector<Mat> masks = AD_Util().threshMask(images_bgr, range);
+	
+      for (const auto& mask : masks)
+      {
+          namedWindow("Mask", WINDOW_NORMAL);
+          imshow("Mask", mask);
+
+          char c = waitKey(0);
+          if (c == 27)
+              return;
+      }
+
+}
+
+void test_threshMask(int id, HSVRange& range)
 {
   VideoCapture cam;
 
@@ -198,10 +232,6 @@ void test_threshMask(int id)
       cout << "Could not open camera\n";
       std::exit(EXIT_FAILURE);
   }
-
-  HSVRange range{.LowH = 110, .HighH = 130,
-      .LowS = 100, .HighS = 255,
-      .LowV = 100, .HighV = 255};
 
   while (1)
   {
@@ -225,8 +255,6 @@ void test_threshMask(int id)
           if (c == 27)
               return;
       }
-
-
   }
 }
 //End of file
