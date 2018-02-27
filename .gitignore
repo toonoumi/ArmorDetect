@@ -3,3 +3,7 @@ build/
 
 # Ignore CMakeList.txt
 /**/CMakeLists.txt
+src/.DS_Store
+.DS_Store
+.DS_Store
+.DS_Store
