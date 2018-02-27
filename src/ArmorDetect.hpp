@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
+//#include <unistd.h>
 #include "AD_Util.h"
 #define DEBUG_MODE 1
 
@@ -308,14 +309,19 @@ public:
      *
      */
     ArmorDetect(){
-        VideoCapture cap(1);
-        //cap.set(CAP_PROP_EXPOSURE, 0);
+        VideoCapture cap(0);
+        cap.set(CAP_PROP_EXPOSURE, -13);
         //cap.set(CAP_PROP_BRIGHTNESS, 0);
+        cap.set(CAP_PROP_FRAME_WIDTH , 640);
+         cap.set(CAP_PROP_FRAME_HEIGHT , 480);
+        cap.set(CV_CAP_PROP_FOURCC ,CV_FOURCC('M', 'J', 'P', 'G') );
+        //cap.set(CAP_PROP_HUE , 120);
+        //cap.set(CAP_PROP_TEMPERATURE  , -100);
         while(1){
             Mat image;
             cap>>image;
             vector<LightBar> allLightBars; //to record light bars recognized
-            resize(image, image, Size(640,480));
+            //resize(image, image, Size(640,480));
             Mat contoursImg;
             Mat contoursImg2;
             Mat bluredImg;
@@ -341,9 +347,9 @@ public:
             namedWindow( "Display window binary", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window binary", binaryImg );
 #endif
-
-
-            waitKey(27);                                          // Wait for a keystroke in the window
+            
+            
+            waitKey(15);                                          // Wait for a keystroke in the window
         }
         //cout<<"RoboGrinders Wins"<<endl;
         
