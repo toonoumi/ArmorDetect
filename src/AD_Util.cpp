@@ -35,7 +35,7 @@ float AD_Util::find_Temperature_Adjustment(Matvector frames){}
 
 std::pair<HSVRange, bool> AD_Util::find_Red_HSVRange(Matvector frames)
 {
-	// Previous HSVRange values that worked
+	// Previous HSVRange values that workedA
 	static vector<HSVRange> previous;
 	// Convert to HSV
 	Matvector frames_hsv (bgrToHSV(frames, true));
