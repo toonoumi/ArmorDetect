@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
+#include <chrono>
 //#include <unistd.h>
 #include "AD_Util.h"
 #define DEBUG_MODE 1
@@ -94,7 +95,7 @@ public:
      */
     void drawFit(vector<vector<Point>> contours,Mat&dst, vector<LightBar>&allLightBars){
         for(int i=0;i<contours.size();i++){
-            if(contours[i].size()<40){
+            if(contours[i].size()<50){
                 continue;
             }
             Vec4f rst;
@@ -118,7 +119,7 @@ public:
 
             int x1=(y1-c)/(rst[1]/rst[0]);
             int x2=(y2-c)/(rst[1]/rst[0]);
-            if(abs(rst[1]/rst[0])>8){  //if the slope is big enough
+            if(abs(rst[1]/rst[0])>4){  //if the slope is big enough
 #ifdef DEBUG_MODE
                 line(dst,Point(x1,y1),Point(x2,y2),Scalar(255,0,255),1);
 #endif
@@ -225,10 +226,10 @@ public:
      */
      vector<vector<LightBar>> pairing(vector<LightBar> allLightBars){
          vector<vector<LightBar>> rtn;
-         int verticalOffset=20;
-         float slopeOffset=100;
+         int verticalOffset=30;
+         float slopeOffset=1000;
          //float constantOffset=50000;
-         int differenceOffset=10;
+         int differenceOffset=20;
 
         for(int i=0;i<allLightBars.size();i++){
             if(allLightBars[i].paired){
@@ -309,19 +310,21 @@ public:
      *
      */
     ArmorDetect(){
-        VideoCapture cap(0);
-        cap.set(CAP_PROP_EXPOSURE, -13);
+        VideoCapture cap("IMG_6586.mp4");
+        cap.set(CV_CAP_PROP_EXPOSURE, -13);
         //cap.set(CAP_PROP_BRIGHTNESS, 0);
         cap.set(CAP_PROP_FRAME_WIDTH , 640);
          cap.set(CAP_PROP_FRAME_HEIGHT , 480);
-        cap.set(CV_CAP_PROP_FOURCC ,CV_FOURCC('M', 'J', 'P', 'G') );
-        //cap.set(CAP_PROP_HUE , 120);
+        //cap.set(CV_CAP_PROP_FOURCC ,CV_FOURCC('M', 'J', 'P', 'G') );
+        cap.set(CV_CAP_PROP_FPS , 120);
         //cap.set(CAP_PROP_TEMPERATURE  , -100);
         while(1){
             Mat image;
             cap>>image;
+            auto start = std::chrono::high_resolution_clock::now();
+            
             vector<LightBar> allLightBars; //to record light bars recognized
-            //resize(image, image, Size(640,480));
+            resize(image, image, Size(640,480));
             Mat contoursImg;
             Mat contoursImg2;
             Mat bluredImg;
@@ -348,8 +351,10 @@ public:
             imshow( "Display window binary", binaryImg );
 #endif
             
-            
-            waitKey(15);                                          // Wait for a keystroke in the window
+            auto finish = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> elapsed = finish - start;
+            std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+            waitKey(6);                                          // Wait for a keystroke in the window
         }
         //cout<<"RoboGrinders Wins"<<endl;
         
