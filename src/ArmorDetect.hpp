@@ -340,6 +340,18 @@ public:
             cout<<"There are "<<pairs.size()<<" pairs of lightbars."<<endl;
             //draw pairs
             drawPair(pairs, bluredImg);
+            
+            
+            //draw AimPoint
+            AD_Util myAD_Util;
+            AimPoint aim;
+            aim.x=image.rows/2+70;
+            aim.y=image.cols/2-90;
+            bool JasonSB;
+            JasonSB=myAD_Util.draw_Aim(aim, image);
+            while (!JasonSB){}
+
+            
 #ifdef DEBUG_MODE
             namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window", bluredImg );

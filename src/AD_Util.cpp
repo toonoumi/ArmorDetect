@@ -3,7 +3,8 @@
 //  ArmorDetect
 //														Dates
 //  Created by: Jason Lu			10/12/17.
-//			Edited: Frank Eyenga 	12/17/2017 
+//			Edited: Frank Eyenga 	12/17/2017
+//          Edited: Youming Qin     03/03/2018
 //
 
 
@@ -25,7 +26,8 @@ AD_Util::~AD_Util(){}
 
 bool AD_Util::display_Img(Mat frame){}
  
-bool AD_Util::draw_Aim(AimPoint aim, Mat&frame){}
+bool AD_Util::draw_Aim(AimPoint aim, Mat&frame){
+}
 
 bool AD_Util::draw_Arrow(DirectionHint hint, Mat&frame){}
  
