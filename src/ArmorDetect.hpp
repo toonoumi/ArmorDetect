@@ -32,7 +32,7 @@ typedef struct _LightBar LightBar;
 
 class ArmorDetect{
 public:
-    /**
+    /*
      *  To threshold the image into binary image
      *
      *  @param src

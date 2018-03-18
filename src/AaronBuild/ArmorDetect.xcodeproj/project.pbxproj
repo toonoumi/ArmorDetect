@@ -9,22 +9,22 @@
 /* Begin PBXAggregateTarget section */
 		4FD86792D771412493AC0139 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 2E3BF642D17C4D6BBC382F8E /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = A1097CE8D7114E0CB34AD843 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				A0B6243A01D649628BDFE5E6 /* CMake Rules */,
+				94E9DBAD8A334F4E8BCA6FF0 /* CMake Rules */,
 			);
 			dependencies = (
-				0F15FFD9FC06497BB435D5E1 /* PBXTargetDependency */,
-				3963F020435842569334BA87 /* PBXTargetDependency */,
+				E52510D7A4F94C16BE85711C /* PBXTargetDependency */,
+				8C4A3E58737C4E79AA8A0526 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
 		};
 		AC25217DF0204B6ABC566A11 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 7B6F7AF1D9454CDABB0BA6AD /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 6673518A5D5D43C1AB7AB63C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
-				E4FD03B1CB05400296731BA6 /* CMake Rules */,
+				F7C75374324F4DDFBF622F13 /* CMake Rules */,
 			);
 			dependencies = (
 			);
@@ -34,25 +34,58 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		00F9D7E310964A039694A07E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1B10D80E34D59B2133B19 /* main.cpp */; };
+		2A8846585E87454898ADE829 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/AD_Util.cpp */ = {isa = PBXBuildFile; fileRef = F92FBF9920D041D68E4188E8 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/AD_Util.cpp */; };
+		56BA13A1BD7342EE90578853 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/main.cpp */ = {isa = PBXBuildFile; fileRef = 8909F0B693944A9790B5CBE3 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/main.cpp */; };
+		ED118D44659A40D0A1F7C123 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = FFC30988EF4144F6868F8180 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildStyle section */
+		3BC37C0A40B64F7DBB7DEC3F /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		400217C0692548958B43442B /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		97DA543D90024255B93B687E /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		A8536141653D445995C21376 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
 /* Begin PBXContainerItemProxy section */
-		6A8B59F9B89B4B7BB17E9016 /* PBXContainerItemProxy */ = {
+		0CFD5DC8C8D84595A6F8436B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9264A4209DC74A9D84ACBB8C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BC2502DAA8E048C7ACF43A1C;
 			remoteInfo = ArmorDetect;
 		};
-		6E6EE9BF436F49C1AD941DED /* PBXContainerItemProxy */ = {
+		37E314354E964D1CAAC9E5F3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9264A4209DC74A9D84ACBB8C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AC25217DF0204B6ABC566A11;
 			remoteInfo = ZERO_CHECK;
 		};
-		88ACEC5798BA4489B55C2C64 /* PBXContainerItemProxy */ = {
+		5A9548A675EC4A7C92AF9509 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9264A4209DC74A9D84ACBB8C /* Project object */;
 			proxyType = 1;
@@ -62,85 +95,81 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3DE1B10D80E34D59B2133B19 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = main.cpp; sourceTree = SOURCE_ROOT; };
-		5DC056FE12324794A9BA6DDB /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		8512E15F06ED4245BD96B6C0 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		9353F1202047AA6600C74608 /* AD_Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AD_Util.h; sourceTree = "<group>"; };
-		9353F1212047AA6600C74608 /* ArmorDetect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ArmorDetect.hpp; sourceTree = "<group>"; };
-		9353F1222047AA6700C74608 /* AD_Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AD_Util.cpp; sourceTree = "<group>"; };
-		DC5FB5C823F74DF1AE2EA5A1 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		FEC14561D712491B9EBA6856 /* ArmorDetect */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ArmorDetect; sourceTree = BUILT_PRODUCTS_DIR; };
+		8909F0B693944A9790B5CBE3 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		92D128357832499799307EED /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		992B42438BCC421AACC9578A /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		AF193A4300A941A5ABE7A7F1 /* ArmorDetect */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ArmorDetect; sourceTree = BUILT_PRODUCTS_DIR; };
+		F92FBF9920D041D68E4188E8 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/AD_Util.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AD_Util.cpp; path = AD_Util.cpp; sourceTree = SOURCE_ROOT; };
+		FFC30988EF4144F6868F8180 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		07AEE88C2054422EB7FC55FB /* CMake Rules */ = {
+		0F6A0E9C80F44C8FBB986941 /* ArmorDetect */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		3FE6B877F94147CBBED3B3F8 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				9353F1222047AA6700C74608 /* AD_Util.cpp */,
-				9353F1202047AA6600C74608 /* AD_Util.h */,
-				9353F1212047AA6600C74608 /* ArmorDetect.hpp */,
-				3DE1B10D80E34D59B2133B19 /* main.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		6032B0548C26438996E741A7 = {
-			isa = PBXGroup;
-			children = (
-				696479AF68F14733BE830379 /* ArmorDetect */,
-				A51AA0E3461A4BEFB2A6FEA3 /* ALL_BUILD */,
-				9E7DE5DCDA8B4234B7AD7C71 /* ZERO_CHECK */,
-				DAD460814D34485C9F123887 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		696479AF68F14733BE830379 /* ArmorDetect */ = {
-			isa = PBXGroup;
-			children = (
-				3FE6B877F94147CBBED3B3F8 /* Source Files */,
-				5DC056FE12324794A9BA6DDB /* CMakeLists.txt */,
+				E773957ED14E46FA88B7DF8C /* Source Files */,
+				FFC30988EF4144F6868F8180 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */,
 			);
 			name = ArmorDetect;
 			sourceTree = "<group>";
 		};
-		9E7DE5DCDA8B4234B7AD7C71 /* ZERO_CHECK */ = {
-			isa = PBXGroup;
-			children = (
-				E13403CA509C48A08B6041D3 /* CMake Rules */,
-				DC5FB5C823F74DF1AE2EA5A1 /* CMakeLists.txt */,
-			);
-			name = ZERO_CHECK;
-			sourceTree = "<group>";
-		};
-		A51AA0E3461A4BEFB2A6FEA3 /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				07AEE88C2054422EB7FC55FB /* CMake Rules */,
-				8512E15F06ED4245BD96B6C0 /* CMakeLists.txt */,
-			);
-			name = ALL_BUILD;
-			sourceTree = "<group>";
-		};
-		DAD460814D34485C9F123887 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FEC14561D712491B9EBA6856 /* ArmorDetect */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E13403CA509C48A08B6041D3 /* CMake Rules */ = {
+		3877B62FDBBE430BB6DDE615 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		6DE808814D3E4221A57BDE82 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		A38B478BB34444F9873D53B7 /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				3877B62FDBBE430BB6DDE615 /* CMake Rules */,
+				992B42438BCC421AACC9578A /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		D3F45215A0F64B3F86EB84B0 = {
+			isa = PBXGroup;
+			children = (
+				0F6A0E9C80F44C8FBB986941 /* ArmorDetect */,
+				E381085B36D1450E967B4081 /* ALL_BUILD */,
+				A38B478BB34444F9873D53B7 /* ZERO_CHECK */,
+				E92397A01971464B9BA31171 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E381085B36D1450E967B4081 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				6DE808814D3E4221A57BDE82 /* CMake Rules */,
+				92D128357832499799307EED /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		E773957ED14E46FA88B7DF8C /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				F92FBF9920D041D68E4188E8 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/AD_Util.cpp */,
+				8909F0B693944A9790B5CBE3 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/main.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		E92397A01971464B9BA31171 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AF193A4300A941A5ABE7A7F1 /* ArmorDetect */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,18 +177,18 @@
 /* Begin PBXNativeTarget section */
 		BC2502DAA8E048C7ACF43A1C /* ArmorDetect */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84DB1FC01EF7423789F3F24A /* Build configuration list for PBXNativeTarget "ArmorDetect" */;
+			buildConfigurationList = 949628F41C504E719E75F573 /* Build configuration list for PBXNativeTarget "ArmorDetect" */;
 			buildPhases = (
-				E7D4819F6AB242379521633F /* Sources */,
+				F79AB350578442F396807846 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A816D5057FB541FA87C2EC7A /* PBXTargetDependency */,
+				40A34C08B71247C6BC90EFD2 /* PBXTargetDependency */,
 			);
 			name = ArmorDetect;
 			productName = ArmorDetect;
-			productReference = FEC14561D712491B9EBA6856 /* ArmorDetect */;
+			productReference = AF193A4300A941A5ABE7A7F1 /* ArmorDetect */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -171,14 +200,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 0920;
 			};
-			buildConfigurationList = 9D73C0C5264144C09B15E6F0 /* Build configuration list for PBXProject "ArmorDetect" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
+			buildConfigurationList = F5B3F33CBAB74CF98B6C717B /* Build configuration list for PBXProject "ArmorDetect" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				400217C0692548958B43442B /* Debug */,
+				A8536141653D445995C21376 /* Release */,
+				97DA543D90024255B93B687E /* MinSizeRel */,
+				3BC37C0A40B64F7DBB7DEC3F /* RelWithDebInfo */,
 			);
-			mainGroup = 6032B0548C26438996E741A7;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = D3F45215A0F64B3F86EB84B0;
 			projectDirPath = ../;
 			projectRoot = "";
 			targets = (
@@ -190,7 +223,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A0B6243A01D649628BDFE5E6 /* CMake Rules */ = {
+		94E9DBAD8A334F4E8BCA6FF0 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -201,7 +234,37 @@
 			shellScript = "make -C /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild -f /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
 			showEnvVarsInLog = 0;
 		};
-		E4FD03B1CB05400296731BA6 /* CMake Rules */ = {
+		C98D4F50B07C477BBB0855D2 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		E3D6E1CC5CFA45BEAB0E73F3 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		F7C75374324F4DDFBF622F13 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -215,145 +278,46 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E7D4819F6AB242379521633F /* Sources */ = {
+		F79AB350578442F396807846 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00F9D7E310964A039694A07E /* main.cpp in Sources */,
+				2A8846585E87454898ADE829 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/AD_Util.cpp */,
+				56BA13A1BD7342EE90578853 /* /Users/Aaron/Documents/GitHub/ArmorDetect/src/main.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0F15FFD9FC06497BB435D5E1 /* PBXTargetDependency */ = {
+		40A34C08B71247C6BC90EFD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC25217DF0204B6ABC566A11 /* ZERO_CHECK */;
+			targetProxy = 37E314354E964D1CAAC9E5F3 /* PBXContainerItemProxy */;
+		};
+		8C4A3E58737C4E79AA8A0526 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC25217DF0204B6ABC566A11 /* ZERO_CHECK */;
+			targetProxy = 5A9548A675EC4A7C92AF9509 /* PBXContainerItemProxy */;
+		};
+		E52510D7A4F94C16BE85711C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC2502DAA8E048C7ACF43A1C /* ArmorDetect */;
-			targetProxy = 6A8B59F9B89B4B7BB17E9016 /* PBXContainerItemProxy */;
-		};
-		3963F020435842569334BA87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AC25217DF0204B6ABC566A11 /* ZERO_CHECK */;
-			targetProxy = 88ACEC5798BA4489B55C2C64 /* PBXContainerItemProxy */;
-		};
-		A816D5057FB541FA87C2EC7A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AC25217DF0204B6ABC566A11 /* ZERO_CHECK */;
-			targetProxy = 6E6EE9BF436F49C1AD941DED /* PBXContainerItemProxy */;
+			targetProxy = 0CFD5DC8C8D84595A6F8436B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0F3DF80AA21F4E4DB579437D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Release;
-		};
-		1CDE5A2F5C594F348E781D77 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = MinSizeRel;
-		};
-		29448A57FDF2438CA5CD68D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Release;
-		};
-		2BB006870C544BCA90DCA994 /* Release */ = {
+		02E611F8542041B189D0BA91 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild/build;
-			};
-			name = Release;
-		};
-		2EDBA62EA4C045F7955E2782 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
 			};
 			name = RelWithDebInfo;
 		};
-		36A276BFF4384BED99B50F3C /* MinSizeRel */ = {
+		10FAB2CDDEB8458795F1F652 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
@@ -362,7 +326,87 @@
 			};
 			name = MinSizeRel;
 		};
-		48DB3AF24B0E46639D1CF610 /* MinSizeRel */ = {
+		2087F99888A14F2798C12A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		2BD752FF3E2248EAB6E10493 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		504064362A3A4F99BD6C20A5 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		576FF722C2B24336801BFA45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		59164BDF634B414BBA45094C /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -371,59 +415,51 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CPLUSPLUSFLAGS = (
-					"-std=c++11",
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					/usr/local/lib/libopencv_dnn.3.4.0.dylib,
-					/usr/local/lib/libopencv_ml.3.4.0.dylib,
-					/usr/local/lib/libopencv_objdetect.3.4.0.dylib,
-					/usr/local/lib/libopencv_shape.3.4.0.dylib,
-					/usr/local/lib/libopencv_stitching.3.4.0.dylib,
-					/usr/local/lib/libopencv_superres.3.4.0.dylib,
-					/usr/local/lib/libopencv_videostab.3.4.0.dylib,
-					/usr/local/lib/libopencv_calib3d.3.4.0.dylib,
-					/usr/local/lib/libopencv_features2d.3.4.0.dylib,
-					/usr/local/lib/libopencv_flann.3.4.0.dylib,
-					/usr/local/lib/libopencv_highgui.3.4.0.dylib,
-					/usr/local/lib/libopencv_photo.3.4.0.dylib,
-					/usr/local/lib/libopencv_video.3.4.0.dylib,
-					/usr/local/lib/libopencv_videoio.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgcodecs.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgproc.3.4.0.dylib,
-					/usr/local/lib/libopencv_core.3.4.0.dylib,
-				);
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11     -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/lib/libopencv_dnn.3.4.0.dylib /usr/local/lib/libopencv_ml.3.4.0.dylib /usr/local/lib/libopencv_objdetect.3.4.0.dylib /usr/local/lib/libopencv_shape.3.4.0.dylib /usr/local/lib/libopencv_stitching.3.4.0.dylib /usr/local/lib/libopencv_superres.3.4.0.dylib /usr/local/lib/libopencv_videostab.3.4.0.dylib /usr/local/lib/libopencv_calib3d.3.4.0.dylib /usr/local/lib/libopencv_features2d.3.4.0.dylib /usr/local/lib/libopencv_flann.3.4.0.dylib /usr/local/lib/libopencv_highgui.3.4.0.dylib /usr/local/lib/libopencv_photo.3.4.0.dylib /usr/local/lib/libopencv_video.3.4.0.dylib /usr/local/lib/libopencv_videoio.3.4.0.dylib /usr/local/lib/libopencv_imgcodecs.3.4.0.dylib /usr/local/lib/libopencv_imgproc.3.4.0.dylib /usr/local/lib/libopencv_core.3.4.0.dylib";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ArmorDetect;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/include /usr/local/include/opencv";
+				SYSTEM_HEADER_SEARCH_PATHS = (/usr/local/include,/usr/local/include/opencv);
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
 			name = MinSizeRel;
 		};
-		5546786423FE416EAE2220D4 /* Debug */ = {
+		8BC950B7C1E344DC9EE9EE79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		AA86228DA611413CA754CA28 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
@@ -432,67 +468,11 @@
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = Debug;
+			name = MinSizeRel;
 		};
-		5CE543FC099B47F6A8A6DAAB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				LD_RUNPATH_SEARCH_PATHS = /usr/local/lib;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CPLUSPLUSFLAGS = " -std=c++11     ";
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					/usr/local/lib/libopencv_dnn.3.4.0.dylib,
-					/usr/local/lib/libopencv_ml.3.4.0.dylib,
-					/usr/local/lib/libopencv_objdetect.3.4.0.dylib,
-					/usr/local/lib/libopencv_shape.3.4.0.dylib,
-					/usr/local/lib/libopencv_stitching.3.4.0.dylib,
-					/usr/local/lib/libopencv_superres.3.4.0.dylib,
-					/usr/local/lib/libopencv_videostab.3.4.0.dylib,
-					/usr/local/lib/libopencv_calib3d.3.4.0.dylib,
-					/usr/local/lib/libopencv_features2d.3.4.0.dylib,
-					/usr/local/lib/libopencv_flann.3.4.0.dylib,
-					/usr/local/lib/libopencv_highgui.3.4.0.dylib,
-					/usr/local/lib/libopencv_photo.3.4.0.dylib,
-					/usr/local/lib/libopencv_video.3.4.0.dylib,
-					/usr/local/lib/libopencv_videoio.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgcodecs.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgproc.3.4.0.dylib,
-					/usr/local/lib/libopencv_core.3.4.0.dylib,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ArmorDetect;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/include /usr/local/include/opencv";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Debug;
-		};
-		5DB350FD48CE4BA8AD517957 /* Release */ = {
+		B28379D003EF432ABE688456 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -501,77 +481,73 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CPLUSPLUSFLAGS = (
-					"-std=c++11",
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					/usr/local/lib/libopencv_dnn.3.4.0.dylib,
-					/usr/local/lib/libopencv_ml.3.4.0.dylib,
-					/usr/local/lib/libopencv_objdetect.3.4.0.dylib,
-					/usr/local/lib/libopencv_shape.3.4.0.dylib,
-					/usr/local/lib/libopencv_stitching.3.4.0.dylib,
-					/usr/local/lib/libopencv_superres.3.4.0.dylib,
-					/usr/local/lib/libopencv_videostab.3.4.0.dylib,
-					/usr/local/lib/libopencv_calib3d.3.4.0.dylib,
-					/usr/local/lib/libopencv_features2d.3.4.0.dylib,
-					/usr/local/lib/libopencv_flann.3.4.0.dylib,
-					/usr/local/lib/libopencv_highgui.3.4.0.dylib,
-					/usr/local/lib/libopencv_photo.3.4.0.dylib,
-					/usr/local/lib/libopencv_video.3.4.0.dylib,
-					/usr/local/lib/libopencv_videoio.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgcodecs.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgproc.3.4.0.dylib,
-					/usr/local/lib/libopencv_core.3.4.0.dylib,
-				);
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11     -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/lib/libopencv_dnn.3.4.0.dylib /usr/local/lib/libopencv_ml.3.4.0.dylib /usr/local/lib/libopencv_objdetect.3.4.0.dylib /usr/local/lib/libopencv_shape.3.4.0.dylib /usr/local/lib/libopencv_stitching.3.4.0.dylib /usr/local/lib/libopencv_superres.3.4.0.dylib /usr/local/lib/libopencv_videostab.3.4.0.dylib /usr/local/lib/libopencv_calib3d.3.4.0.dylib /usr/local/lib/libopencv_features2d.3.4.0.dylib /usr/local/lib/libopencv_flann.3.4.0.dylib /usr/local/lib/libopencv_highgui.3.4.0.dylib /usr/local/lib/libopencv_photo.3.4.0.dylib /usr/local/lib/libopencv_video.3.4.0.dylib /usr/local/lib/libopencv_videoio.3.4.0.dylib /usr/local/lib/libopencv_imgcodecs.3.4.0.dylib /usr/local/lib/libopencv_imgproc.3.4.0.dylib /usr/local/lib/libopencv_core.3.4.0.dylib";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ArmorDetect;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/include /usr/local/include/opencv";
+				SYSTEM_HEADER_SEARCH_PATHS = (/usr/local/include,/usr/local/include/opencv);
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
 			name = Release;
 		};
-		A421F8F160D24E86BBF8D405 /* MinSizeRel */ = {
+		C9A79CE6E54D4428B4C45ECE /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = MinSizeRel;
+			name = RelWithDebInfo;
 		};
-		A896B232D6E443F4B4C21FDD /* Debug */ = {
+		D10D2BE4E5AB4D67B0014874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild/build;
+			};
+			name = Release;
+		};
+		DEEA3E75060C40C3B524EB7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		E2B8399AF8A9452CBFE4ED73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
@@ -580,7 +556,7 @@
 			};
 			name = Debug;
 		};
-		E091237090C246AD99860F41 /* RelWithDebInfo */ = {
+		E568A475B08B44CF8161039B /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -589,153 +565,92 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CPLUSPLUSFLAGS = (
-					"-std=c++11",
-					"-DNDEBUG",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					/usr/local/lib/libopencv_dnn.3.4.0.dylib,
-					/usr/local/lib/libopencv_ml.3.4.0.dylib,
-					/usr/local/lib/libopencv_objdetect.3.4.0.dylib,
-					/usr/local/lib/libopencv_shape.3.4.0.dylib,
-					/usr/local/lib/libopencv_stitching.3.4.0.dylib,
-					/usr/local/lib/libopencv_superres.3.4.0.dylib,
-					/usr/local/lib/libopencv_videostab.3.4.0.dylib,
-					/usr/local/lib/libopencv_calib3d.3.4.0.dylib,
-					/usr/local/lib/libopencv_features2d.3.4.0.dylib,
-					/usr/local/lib/libopencv_flann.3.4.0.dylib,
-					/usr/local/lib/libopencv_highgui.3.4.0.dylib,
-					/usr/local/lib/libopencv_photo.3.4.0.dylib,
-					/usr/local/lib/libopencv_video.3.4.0.dylib,
-					/usr/local/lib/libopencv_videoio.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgcodecs.3.4.0.dylib,
-					/usr/local/lib/libopencv_imgproc.3.4.0.dylib,
-					/usr/local/lib/libopencv_core.3.4.0.dylib,
-				);
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11        -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/lib/libopencv_dnn.3.4.0.dylib /usr/local/lib/libopencv_ml.3.4.0.dylib /usr/local/lib/libopencv_objdetect.3.4.0.dylib /usr/local/lib/libopencv_shape.3.4.0.dylib /usr/local/lib/libopencv_stitching.3.4.0.dylib /usr/local/lib/libopencv_superres.3.4.0.dylib /usr/local/lib/libopencv_videostab.3.4.0.dylib /usr/local/lib/libopencv_calib3d.3.4.0.dylib /usr/local/lib/libopencv_features2d.3.4.0.dylib /usr/local/lib/libopencv_flann.3.4.0.dylib /usr/local/lib/libopencv_highgui.3.4.0.dylib /usr/local/lib/libopencv_photo.3.4.0.dylib /usr/local/lib/libopencv_video.3.4.0.dylib /usr/local/lib/libopencv_videoio.3.4.0.dylib /usr/local/lib/libopencv_imgcodecs.3.4.0.dylib /usr/local/lib/libopencv_imgproc.3.4.0.dylib /usr/local/lib/libopencv_core.3.4.0.dylib";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ArmorDetect;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				SYSTEM_HEADER_SEARCH_PATHS = "/usr/local/include /usr/local/include/opencv";
+				SYSTEM_HEADER_SEARCH_PATHS = (/usr/local/include,/usr/local/include/opencv);
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		EBC07B3AAB8D4B8EA68ED76E /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild/build;
-			};
-			name = RelWithDebInfo;
-		};
-		ED47BACDA7FC4F0C8CC463E6 /* Debug */ = {
+		EC8E47C034834B0EA598DBFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
+				LD_RUNPATH_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11     ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/lib/libopencv_dnn.3.4.0.dylib /usr/local/lib/libopencv_ml.3.4.0.dylib /usr/local/lib/libopencv_objdetect.3.4.0.dylib /usr/local/lib/libopencv_shape.3.4.0.dylib /usr/local/lib/libopencv_stitching.3.4.0.dylib /usr/local/lib/libopencv_superres.3.4.0.dylib /usr/local/lib/libopencv_videostab.3.4.0.dylib /usr/local/lib/libopencv_calib3d.3.4.0.dylib /usr/local/lib/libopencv_features2d.3.4.0.dylib /usr/local/lib/libopencv_flann.3.4.0.dylib /usr/local/lib/libopencv_highgui.3.4.0.dylib /usr/local/lib/libopencv_photo.3.4.0.dylib /usr/local/lib/libopencv_video.3.4.0.dylib /usr/local/lib/libopencv_videoio.3.4.0.dylib /usr/local/lib/libopencv_imgcodecs.3.4.0.dylib /usr/local/lib/libopencv_imgproc.3.4.0.dylib /usr/local/lib/libopencv_core.3.4.0.dylib";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
+				PRODUCT_NAME = ArmorDetect;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
+				SYSTEM_HEADER_SEARCH_PATHS = (/usr/local/include,/usr/local/include/opencv);
 				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
 			name = Debug;
-		};
-		FA99EA47CECA425B935AB839 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/Aaron/Documents/GitHub/ArmorDetect/src/AaronBuild;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2E3BF642D17C4D6BBC382F8E /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		6673518A5D5D43C1AB7AB63C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				ED47BACDA7FC4F0C8CC463E6 /* Debug */,
-				0F3DF80AA21F4E4DB579437D /* Release */,
-				1CDE5A2F5C594F348E781D77 /* MinSizeRel */,
-				FA99EA47CECA425B935AB839 /* RelWithDebInfo */,
+				2087F99888A14F2798C12A5B /* Debug */,
+				576FF722C2B24336801BFA45 /* Release */,
+				AA86228DA611413CA754CA28 /* MinSizeRel */,
+				504064362A3A4F99BD6C20A5 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7B6F7AF1D9454CDABB0BA6AD /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		949628F41C504E719E75F573 /* Build configuration list for PBXNativeTarget "ArmorDetect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5546786423FE416EAE2220D4 /* Debug */,
-				29448A57FDF2438CA5CD68D7 /* Release */,
-				A421F8F160D24E86BBF8D405 /* MinSizeRel */,
-				2EDBA62EA4C045F7955E2782 /* RelWithDebInfo */,
+				EC8E47C034834B0EA598DBFE /* Debug */,
+				B28379D003EF432ABE688456 /* Release */,
+				59164BDF634B414BBA45094C /* MinSizeRel */,
+				E568A475B08B44CF8161039B /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		84DB1FC01EF7423789F3F24A /* Build configuration list for PBXNativeTarget "ArmorDetect" */ = {
+		A1097CE8D7114E0CB34AD843 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5CE543FC099B47F6A8A6DAAB /* Debug */,
-				5DB350FD48CE4BA8AD517957 /* Release */,
-				48DB3AF24B0E46639D1CF610 /* MinSizeRel */,
-				E091237090C246AD99860F41 /* RelWithDebInfo */,
+				DEEA3E75060C40C3B524EB7F /* Debug */,
+				8BC950B7C1E344DC9EE9EE79 /* Release */,
+				2BD752FF3E2248EAB6E10493 /* MinSizeRel */,
+				C9A79CE6E54D4428B4C45ECE /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9D73C0C5264144C09B15E6F0 /* Build configuration list for PBXProject "ArmorDetect" */ = {
+		F5B3F33CBAB74CF98B6C717B /* Build configuration list for PBXProject "ArmorDetect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A896B232D6E443F4B4C21FDD /* Debug */,
-				2BB006870C544BCA90DCA994 /* Release */,
-				36A276BFF4384BED99B50F3C /* MinSizeRel */,
-				EBC07B3AAB8D4B8EA68ED76E /* RelWithDebInfo */,
+				E2B8399AF8A9452CBFE4ED73 /* Debug */,
+				D10D2BE4E5AB4D67B0014874 /* Release */,
+				10FAB2CDDEB8458795F1F652 /* MinSizeRel */,
+				02E611F8542041B189D0BA91 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

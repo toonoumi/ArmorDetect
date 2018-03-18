@@ -87,14 +87,12 @@ public:
    * The constructor of AD_Util class
    *
    */
-    AD_Util(){
-    }
+    AD_Util();
 
   /**
    * Deconstructor of AD_Util class
    */
-    ~AD_Util(){
-    }
+    ~AD_Util();
 
   /**
    * This is to display a video or a image. Instead of using imshow
@@ -119,32 +117,8 @@ public:
    * @return
    *      if the HUD is drew
    */
-    bool draw_Aim(AimPoint aim, Mat&frame){
+    bool draw_Aim(AimPoint aim, Mat&frame);
 
-        
-//        //方案1 圈加点
-//        Point p1(aim.x,aim.y);
-//        Point p2(aim.x,aim.y+1);
-//        circle(frame, p1, 25, Scalar(13,15,185),2);
-//        line(frame, p1, p2, Scalar(13,15,185),2);
-        
-        //方案2 圈加叉
-        Point p1(aim.x,aim.y);
-        Point p2(aim.x,aim.y+1);
-        circle(frame, p1, 25, Scalar(13,15,185),2);
-        arrowedLine(frame, p2, p1, Scalar(13,15,185),2,8,0,10);
-        drawMarker(frame, p1, Scalar(13,15,185),1,20,2,8);
-        
-        
-//        //方案3 四倍镜
-//        Point p1(aim.x,aim.y);
-//        Point p2(aim.x,aim.y+1);
-//        circle(frame, p1, 25, Scalar(13,15,185),2);
-//        arrowedLine(frame, p2, p1, Scalar(13,15,185),2,8,0,10);
-        
-        
-        return true;
-    }
   /**
    * This will draw arrows to the directions we want to go. (Draw it by the borders of the
    * frame, make it a decent UI)
