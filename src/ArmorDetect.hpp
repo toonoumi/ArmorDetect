@@ -9,6 +9,8 @@
 #include <chrono>
 //#include <unistd.h>
 #include "AD_Util.h"
+#include "ConfirmationAlgo.hpp"
+
 #define DEBUG_MODE 1
 
 
@@ -26,7 +28,7 @@ using namespace cv;
 struct _LightBar{
     int minY;
     int maxY;
-    Vec2f equation;
+    Vec2d equation;
     bool paired=false;
 };
 typedef struct _LightBar LightBar;
@@ -82,7 +84,7 @@ public:
 
    
     /**
-     *  To draw the detected lightbars on the frame.
+     *  To draw the detected lightbars on the frame, and register the valid lightbars.
      *
      *  @param contours
      *          the grouped points selected for fitting the lines.
@@ -98,9 +100,9 @@ public:
             if(contours[i].size()<50){
                 continue;
             }
-            Vec4f rst;
+            Vec4d rst;
             fitLine(contours[i], rst, CV_DIST_L2, 0, 0.01,0.01);
-            int c=rst[3]-(rst[1]/rst[0])*rst[2];
+            long int c=rst[3]-(rst[1]/rst[0])*rst[2];
             int y1=dst.rows;
             int y2=0;
 
@@ -119,6 +121,10 @@ public:
 
             int x1=(y1-c)/(rst[1]/rst[0]);
             int x2=(y2-c)/(rst[1]/rst[0]);
+            if(x1<0||x2<0||x1>dst.cols||x2>dst.cols){
+                cout<<"fucked."<<endl;
+                break;
+            }
             if(abs(rst[1]/rst[0])>4){  //if the slope is big enough
 #ifdef DEBUG_MODE
                 line(dst,Point(x1,y1),Point(x2,y2),Scalar(255,0,255),1);
@@ -126,7 +132,7 @@ public:
                 LightBar newLightBar;
                 newLightBar.minY=y1;
                 newLightBar.maxY=y2;
-                newLightBar.equation=Vec2f(rst[1]/rst[0],c);
+                newLightBar.equation=Vec2d(rst[1]/rst[0],c);
                 allLightBars.push_back(newLightBar);
             }
         }
@@ -217,6 +223,7 @@ public:
         out.close();
     }
     /**
+     *  This function is to pair similar lightbars for analyze.
      *  @param allLightBars
      *          all light bars that is detected without pairing
      *  @return
@@ -233,11 +240,11 @@ public:
 
         for(int i=0;i<allLightBars.size();i++){
             if(allLightBars[i].paired){
-                continue;
+                //continue;
             }
             for(int j=i+1;j<allLightBars.size();j++){
                 if(allLightBars[j].paired){
-                     continue;
+                     //continue;
                 }
                 int score=0;
                 int topDifference=allLightBars[i].minY - allLightBars[j].minY;
@@ -298,9 +305,17 @@ public:
         for(int i=0;i<pairs.size();i++){
             int x1 = (pairs[i][0].minY - pairs[i][0].equation[1])/pairs[i][0].equation[0];
             int x2 = (pairs[i][1].maxY - pairs[i][1].equation[1])/pairs[i][1].equation[0];
-            Point p1(x1,pairs[i][0].minY);
-            Point p2(x2,pairs[i][1].maxY);
-            rectangle(dst, p1, p2, Scalar(0,255,255),2);
+            int difference = pairs[i][1].maxY - pairs[i][0].minY;
+            
+            Point p1(x1,pairs[i][0].minY-.6*difference);
+            Point p2(x2,pairs[i][1].maxY+.6*difference);
+            //cut the frame to the confirm algorithm for verification
+            rectangle(dst, p1, p2, Scalar(0,255,255),1);
+            Mat cut = dst(Rect(p1,p2));
+            if(contains_circle(cut)){
+                //the cut is confirmed
+                rectangle(dst, p1, p2, Scalar(0,255,0),2);
+            }
         }
     }
     
@@ -341,7 +356,7 @@ public:
             vector<vector<LightBar>> pairs;
             pairs=pairing(allLightBars); //this is the pairs that came out of the result
             cout<<"There are "<<pairs.size()<<" pairs of lightbars."<<endl;
-            //draw pairs
+            //draw pairs, and register identified armor
             drawPair(pairs, bluredImg);
 #ifdef DEBUG_MODE
             namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
@@ -349,11 +364,12 @@ public:
             
             namedWindow( "Display window binary", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window binary", binaryImg );
-#endif
+
             
             auto finish = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> elapsed = finish - start;
             std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+#endif
             waitKey(6);                                          // Wait for a keystroke in the window
         }
         //cout<<"RoboGrinders Wins"<<endl;
