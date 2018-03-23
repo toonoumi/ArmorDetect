@@ -20,6 +20,17 @@
 using namespace std;
 using namespace cv;
 
+
+double getDistance (CvPoint pointO,CvPoint pointA )
+{
+    double distance;
+    distance = powf((pointO.x - pointA.x),2) + powf((pointO.y - pointA.y),2);
+    distance = sqrtf(distance);
+    
+    return distance;
+}
+
+
 /**
  *  To threshold the image into binary image
  *
@@ -89,5 +100,130 @@ bool contains_circle(Mat&src){
     }
     return false;
 }
+
+enum LockonStatus{INVALID, VALID, LOCKED_ON, URGENT};
+
+//------------------definition of armor unit--------------------
+struct _ArmorUnit{
+    Point p1;
+    Point p2;
+    int confirmation=0; //to store how many times it has been confirmed.
+    bool varified=false; //if it contains 66 percent of more confirmation, it is true.
+    LockonStatus status = INVALID;
+};
+typedef struct _ArmorUnit ArmorUnit;
+
+//-------------------definition of Armor Registery--------------------
+class ArmorRegistery{
+private:
+    vector<ArmorUnit> armorUnitList;
+    int number_of_registration = 0;
+    const int confirmation_threshold=10;
+    
+    
+    void clean_invalid_entry(){
+        for(int i=0; i < armorUnitList.size();i++){
+            armorUnitList[i].confirmation-=confirmation_threshold*1.2;
+            if(armorUnitList[i].confirmation<confirmation_threshold){
+                armorUnitList[i].varified=false;
+            }
+            if(!armorUnitList[i].varified){
+                armorUnitList.erase(armorUnitList.begin()+i);
+            }
+        }
+    }
+    
+    bool is_valid_to_register(ArmorUnit item){
+        
+        if(item.p1.x<0||item.p1.y<0||item.p2.x<0||item.p2.y<0){
+            cout<<"Armor not registered for invalid position"<<endl;
+            return false;
+        }
+        if(item.confirmation!=0){
+            cout<<"Armor not registered for abundent info"<<endl;
+            return false;
+        }
+        if(item.varified){
+            cout<<"Armor not registered for skipping the registery process."<<endl;
+            return false;
+        }
+        if(item.status!=INVALID){
+            cout<<"Armor not registered for skipping the registery process."<<endl;
+            return false;
+        }
+        return true;
+    }
+    
+    int match_to_registery(ArmorUnit item){
+        const int max_score = 200;
+        int *scores = new int[armorUnitList.size()];
+        for(int i=0;i<armorUnitList.size();i++){
+            int difference1 = getDistance(item.p1,armorUnitList[i].p1);
+            int difference2 = getDistance(item.p2,armorUnitList[i].p2);
+            scores[i]=max_score-difference1+max_score-difference2;
+        }
+        int best_fit_index=-1;
+        int best_fit_score=INT_MIN;
+        for(int i=0;i<armorUnitList.size();i++){
+            if(scores[i]>0&&scores[i]>best_fit_score){
+                best_fit_index=i;
+                best_fit_score=scores[i];
+            }
+        }
+        delete[]scores;
+        return best_fit_index;
+    }
+public:
+    ArmorRegistery(){
+        
+    }
+    ~ArmorRegistery(){
+        
+    }
+    /**
+     * True is returned if the armor is registered.
+     *  @param item
+     *          the armor unit to register
+     */
+    bool register_armor(ArmorUnit item){
+        if(!is_valid_to_register(item)){
+            cout<<"Armor registration declined."<<endl;
+            return false;
+        }
+        number_of_registration++;
+        if(number_of_registration>3*confirmation_threshold){
+            number_of_registration=0;
+            clean_invalid_entry();
+        }
+        if(armorUnitList.size()==0){
+            armorUnitList.push_back(item);
+            return true;
+        }
+        int match_result = match_to_registery(item);
+        if(match_result == -1){         //coult not find match, treat as newly discovered armor
+            armorUnitList.push_back(item);
+            return true;
+        }
+        //if match is complete, update the registered info
+        armorUnitList[match_result].p1=item.p1;
+        armorUnitList[match_result].p2=item.p2;
+        armorUnitList[match_result].confirmation++;
+        if(armorUnitList[match_result].confirmation<0){
+            armorUnitList[match_result].confirmation=confirmation_threshold; //overflow dealing
+        }
+        if(armorUnitList[match_result].confirmation>confirmation_threshold){
+            armorUnitList[match_result].varified=true;
+            if(armorUnitList[match_result].status==INVALID){
+                armorUnitList[match_result].status=VALID;
+            }
+        }
+        return true;
+    }
+    
+    vector<ArmorUnit> get_registered_armor(){
+        return armorUnitList;
+    }
+};
+
 
 #endif /* ConfirmationAlgo_h */

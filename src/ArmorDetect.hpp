@@ -34,6 +34,8 @@ struct _LightBar{
 typedef struct _LightBar LightBar;
 
 class ArmorDetect{
+private:
+    ArmorRegistery ar;
 public:
     /**
      *  To threshold the image into binary image
@@ -290,6 +292,28 @@ public:
         
      }
     
+    
+    void drawRegisteredArmor(vector<ArmorUnit>armors,Mat&dst){
+        for(int i=0;i<armors.size();i++){
+            if(armors[i].status==VALID){
+                line(dst,armors[i].p1,armors[i].p2,Scalar(0,255,0),2);
+                line(dst,Point(armors[i].p1.x,armors[i].p2.y),Point(armors[i].p2.x,armors[i].p1.y),Scalar(0,255,0),2);
+            }
+            if(armors[i].status==LOCKED_ON){
+                line(dst,armors[i].p1,armors[i].p2,Scalar(255,0,255),2);
+                line(dst,Point(armors[i].p1.x,armors[i].p2.y),Point(armors[i].p2.x,armors[i].p1.y),Scalar(255,0,255),2);
+            }
+            if(armors[i].status==URGENT){
+                line(dst,armors[i].p1,armors[i].p2,Scalar(0,0,255),2);
+                line(dst,Point(armors[i].p1.x,armors[i].p2.y),Point(armors[i].p2.x,armors[i].p1.y),Scalar(0,0,255),2);
+            }
+                                           
+        }
+        
+    }
+    
+    
+    
     /**
      *  To draw the detected lightbars in pairs on the frame.
      *
@@ -311,12 +335,21 @@ public:
             Point p2(x2,pairs[i][1].maxY+.6*difference);
             //cut the frame to the confirm algorithm for verification
             rectangle(dst, p1, p2, Scalar(0,255,255),1);
+            //-----------------register armor-----------------------
+            ArmorUnit newArmor;
+            newArmor.p1=p1;
+            newArmor.p2=p2;
+            ar.register_armor(newArmor);
+            
+            //------------------register armor end---------------------
             Mat cut = dst(Rect(p1,p2));
             if(contains_circle(cut)){
                 //the cut is confirmed
                 rectangle(dst, p1, p2, Scalar(0,255,0),2);
             }
         }
+        vector<ArmorUnit> armors=ar.get_registered_armor();
+        drawRegisteredArmor(armors, dst);
     }
     
     
