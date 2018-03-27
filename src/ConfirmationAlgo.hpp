@@ -20,7 +20,15 @@
 using namespace std;
 using namespace cv;
 
-
+/**
+ *  To get the distance from point 0 to point A
+ *  @param pointO
+ *      starting point
+ *  @param pointA
+ *      ending point
+ *  @return
+ *      return the distance between two point
+ */
 double getDistance (CvPoint pointO,CvPoint pointA )
 {
     double distance;
@@ -78,6 +86,15 @@ void thresholding(Mat&src,Mat&dst,HSVRange range={0,255,0,50,240,255}){
     dst=imgThresholded;
 }
 
+/**
+ *  If the image sent contains a circle in the image
+ *
+ *  @param src
+ *      the source image
+ *  @return
+ *      if the image contains a circle returns true, otherwise false;
+ *
+ */
 bool contains_circle(Mat&src){
     thresholding(src, src);
     vector<vector<Point>> contours;
@@ -100,7 +117,9 @@ bool contains_circle(Mat&src){
     }
     return false;
 }
-
+/*
+ to record the lockon status for the lockon functionality.
+ */
 enum LockonStatus{INVALID, VALID, LOCKED_ON, URGENT};
 
 //------------------definition of armor unit--------------------
@@ -120,7 +139,10 @@ private:
     int number_of_registration = 0;
     const int confirmation_threshold=10;
     
-    
+    /*
+     * procedure to clean the invalid identified armor.
+     * in this case, armor without update will be removed.
+     */
     void clean_invalid_entry(){
         for(int i=0; i < armorUnitList.size();i++){
             armorUnitList[i].confirmation-=confirmation_threshold*1.2;
@@ -132,7 +154,15 @@ private:
             }
         }
     }
-    
+    /**
+     *  To judge if a passed armorunit is a valid one to register
+     *
+     *  @param item
+     *          the armor unit passed for judgement
+     *  @return
+     *          if it is valid.
+     *
+     */
     bool is_valid_to_register(ArmorUnit item){
         
         if(item.p1.x<0||item.p1.y<0||item.p2.x<0||item.p2.y<0){
@@ -153,7 +183,14 @@ private:
         }
         return true;
     }
-    
+    /**
+     *  To match a passed armor unit to the current registery
+     *
+     *  @param item
+     *          the armor unit for matching
+     *  @return
+     *          the index of the current registery that the armor unit matched to
+     */
     int match_to_registery(ArmorUnit item){
         const int max_score = 200;
         int *scores = new int[armorUnitList.size()];
@@ -219,7 +256,10 @@ public:
         }
         return true;
     }
-    
+    /**
+     *  @return
+     *      return the current armor unit registery
+     */
     vector<ArmorUnit> get_registered_armor(){
         return armorUnitList;
     }
