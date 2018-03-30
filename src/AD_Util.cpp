@@ -31,13 +31,13 @@ bool AD_Util::display_Img(Mat frame){
 bool AD_Util::draw_Aim(AimPoint aim, Mat&frame){
     
     
-    //        //方案1 圈加点
-    //        Point p1(aim.x,aim.y);
-    //        Point p2(aim.x,aim.y+1);
-    //        circle(frame, p1, 25, Scalar(13,15,185),2);
-    //        line(frame, p1, p2, Scalar(13,15,185),2);
+//            //Method 1 圈加点 dot and circle
+//            Point p1(aim.x,aim.y);
+//            Point p2(aim.x,aim.y+1);
+//            circle(frame, p1, 25, Scalar(13,15,185),2);
+//            line(frame, p1, p2, Scalar(13,15,185),2);
     
-            //方案2 圈加叉
+            //Method 2 圈加叉 dot and cross
             Point p1(aim.x,aim.y);
             Point p2(aim.x,aim.y+1);
             circle(frame, p1, 25, Scalar(13,15,185),2);
@@ -45,11 +45,11 @@ bool AD_Util::draw_Aim(AimPoint aim, Mat&frame){
             drawMarker(frame, p1, Scalar(13,15,185),1,20,2,8);
     
     
-    //        //方案3 四倍镜
-    //        Point p1(aim.x,aim.y);
-    //        Point p2(aim.x,aim.y+1);
-    //        circle(frame, p1, 25, Scalar(13,15,185),2);
-    //        arrowedLine(frame, p2, p1, Scalar(13,15,185),2,8,0,10);
+//            //Method 3 四倍镜 circle and triangle
+//            Point p1(aim.x,aim.y);
+//            Point p2(aim.x,aim.y+1);
+//            circle(frame, p1, 25, Scalar(13,15,185),2);
+//            arrowedLine(frame, p2, p1, Scalar(13,15,185),2,8,0,10);
     
     
             return true;

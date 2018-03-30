@@ -347,9 +347,7 @@ public:
             AimPoint aim;
             aim.x=image.rows/2+70;
             aim.y=image.cols/2-90;
-            bool JasonSB;
-            JasonSB=myAD_Util.draw_Aim(aim, image);
-            while (!JasonSB){}
+            myAD_Util.draw_Aim(aim, image);
 
             
 #ifdef DEBUG_MODE
