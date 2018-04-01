@@ -50,7 +50,7 @@ double getDistance (CvPoint pointO,CvPoint pointA )
  *          the range for thresholding hsv
  *
  */
-void thresholding(Mat&src,Mat&dst,HSVRange range={0,255,0,50,240,255}){
+void thresholding(Mat&src,Mat&dst,HSVRange range={0,255,0,100,150,255}){
     int iLowH = range.LowH;
     int iHighH = range.HighH;
     
@@ -96,6 +96,9 @@ void thresholding(Mat&src,Mat&dst,HSVRange range={0,255,0,50,240,255}){
  *
  */
 bool contains_circle(Mat&src){
+    if(src.rows<10||src.cols<10){
+        return false;
+    }
     thresholding(src, src);
     vector<vector<Point>> contours;
     findContours(src, contours, RETR_LIST, CHAIN_APPROX_NONE);
@@ -129,6 +132,7 @@ struct _ArmorUnit{
     int confirmation=0; //to store how many times it has been confirmed.
     bool varified=false; //if it contains 66 percent of more confirmation, it is true.
     LockonStatus status = INVALID;
+    uint64_t timestamp=0;
 };
 typedef struct _ArmorUnit ArmorUnit;
 
@@ -137,16 +141,16 @@ class ArmorRegistery{
 private:
     vector<ArmorUnit> armorUnitList;
     int number_of_registration = 0;
-    const int confirmation_threshold=10;
-    
+    const int confirmation_threshold=3;
+    uint64_t frameCount=0;
     /*
      * procedure to clean the invalid identified armor.
      * in this case, armor without update will be removed.
      */
     void clean_invalid_entry(){
         for(int i=0; i < armorUnitList.size();i++){
-            armorUnitList[i].confirmation-=confirmation_threshold*1.2;
-            if(armorUnitList[i].confirmation<confirmation_threshold){
+            //armorUnitList[i].confirmation-=confirmation_threshold*1.2;
+            if(abs(frameCount-armorUnitList[i].timestamp)>5){
                 armorUnitList[i].varified=false;
             }
             if(!armorUnitList[i].varified){
@@ -192,7 +196,7 @@ private:
      *          the index of the current registery that the armor unit matched to
      */
     int match_to_registery(ArmorUnit item){
-        const int max_score = 200;
+        const int max_score = 250;
         int *scores = new int[armorUnitList.size()];
         for(int i=0;i<armorUnitList.size();i++){
             int difference1 = getDistance(item.p1,armorUnitList[i].p1);
@@ -230,6 +234,7 @@ public:
         number_of_registration++;
         if(number_of_registration>3*confirmation_threshold){
             number_of_registration=0;
+            //frameCount=0;
             clean_invalid_entry();
         }
         if(armorUnitList.size()==0){
@@ -245,6 +250,7 @@ public:
         armorUnitList[match_result].p1=item.p1;
         armorUnitList[match_result].p2=item.p2;
         armorUnitList[match_result].confirmation++;
+        armorUnitList[match_result].timestamp=frameCount;
         if(armorUnitList[match_result].confirmation<0){
             armorUnitList[match_result].confirmation=confirmation_threshold; //overflow dealing
         }
@@ -261,7 +267,17 @@ public:
      *      return the current armor unit registery
      */
     vector<ArmorUnit> get_registered_armor(){
+        
+        
         return armorUnitList;
+    }
+    
+    void update_timestamp(){
+        frameCount++;
+        if(frameCount%8==0){
+            //frameCount=0;
+            clean_invalid_entry();
+        }
     }
 };
 

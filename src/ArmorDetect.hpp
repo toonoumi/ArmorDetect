@@ -99,7 +99,7 @@ public:
      */
     void drawFit(vector<vector<Point>> contours,Mat&dst, vector<LightBar>&allLightBars){
         for(int i=0;i<contours.size();i++){
-            if(contours[i].size()<50){
+            if(contours[i].size()<30){
                 continue;
             }
             Vec4d rst;
@@ -127,7 +127,7 @@ public:
                 cout<<"fucked."<<endl;
                 break;
             }
-            if(abs(rst[1]/rst[0])>4){  //if the slope is big enough
+            if(abs(rst[1]/rst[0])>1){  //if the slope is big enough
 #ifdef DEBUG_MODE
                 line(dst,Point(x1,y1),Point(x2,y2),Scalar(255,0,255),1);
 #endif
@@ -342,11 +342,12 @@ public:
             ar.register_armor(newArmor);
             
             //------------------register armor end---------------------
-            Mat cut = dst(Rect(p1,p2));
-            if(contains_circle(cut)){
+            //Mat cut = dst(Rect(p1,p2));
+            /*if(contains_circle(cut)){
                 //the cut is confirmed
                 rectangle(dst, p1, p2, Scalar(0,255,0),2);
-            }
+                //ar.register_armor(newArmor);
+            }*/
         }
         vector<ArmorUnit> armors=ar.get_registered_armor();
         drawRegisteredArmor(armors, dst);
@@ -358,7 +359,9 @@ public:
      *
      */
     ArmorDetect(){
-        VideoCapture cap("IMG_6586.mp4");
+        //VideoCapture cap("1749.mp4");
+        //VideoCapture cap("IMG_6586.mp4");
+        VideoCapture cap(0);
         cap.set(CV_CAP_PROP_EXPOSURE, -13);
         //cap.set(CAP_PROP_BRIGHTNESS, 0);
         cap.set(CAP_PROP_FRAME_WIDTH , 640);
@@ -369,6 +372,10 @@ public:
         while(1){
             Mat image;
             cap>>image;
+            if(image.rows<10||image.cols<10){
+                waitKey(27);
+                continue;
+            }
             auto start = std::chrono::high_resolution_clock::now();
             
             vector<LightBar> allLightBars; //to record light bars recognized
@@ -391,6 +398,7 @@ public:
             cout<<"There are "<<pairs.size()<<" pairs of lightbars."<<endl;
             //draw pairs, and register identified armor
             drawPair(pairs, bluredImg);
+            ar.update_timestamp();
 #ifdef DEBUG_MODE
             namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window", bluredImg );
