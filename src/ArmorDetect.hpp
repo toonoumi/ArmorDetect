@@ -85,6 +85,15 @@ public:
     }
 
    
+void thresholdingRed(Mat&src,Mat&dst,HSVRange range_low={75,130,0,255,240,255}, HSVRange range_upp={75,130,0,255,240,255})
+	{
+		vector<Mat> frame (src);
+		Mat mask_low = AD_Util().threshMask( frame, range_low).front();
+		Mat mask_high = AD_Util().threshMask( frame, range_upp).front();
+		Mat mask = mask_low | mask_high;
+		bitwise_and(src, src, dst, mask);
+	}
+
     /**
      *  To draw the detected lightbars on the frame, and register the valid lightbars.
      *
