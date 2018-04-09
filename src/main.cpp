@@ -1,13 +1,14 @@
 //
-//  AD_Util.h
+//  main.cpp
 //  ArmorDetect
-//														Dates
-//  Created by: Jason Lu			10/12/17.
-//			Edited: Frank Eyenga 	12/17/2017
+//
+// Created by Jason Lu on 2/25/18.
+// Edited: Frank Eyenga 	12/17/2017
 //
 
 #include "opencv2/videoio.hpp"
 #include "AD_Util.h"
+#include "ArmorDetect.hpp"
 #include "test_suite.h"
 
 using std::cout;
@@ -17,7 +18,7 @@ void checkArgs(int argc, char* const argv[]);
 void checkArgsTest1(int argc, char* const argv[]);
 void checkArgsTest2(int argc, char* const argv[]);
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
 	 checkArgs(argc, argv);
 
@@ -98,5 +99,3 @@ void checkArgsTest2(int argc, char* const argv[])
 
   std::exit(EXIT_FAILURE);
 }
-
-// End of file
