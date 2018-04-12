@@ -85,13 +85,13 @@ public:
     }
 
    
-void thresholdingRed(Mat&src,Mat&dst,HSVRange range_low={75,130,0,255,240,255}, HSVRange range_upp={75,130,0,255,240,255})
+void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
 	{
-		vector<Mat> frame (src);
-		Mat mask_low = AD_Util().threshMask( frame, range_low).front();
-		Mat mask_high = AD_Util().threshMask( frame, range_upp).front();
-		Mat mask = mask_low | mask_high;
-		bitwise_and(src, src, dst, mask);
+		AD_Util util;
+		Mat src_inv = ~src; // Invert the image
+
+		GaussianBlur(src_inv, src_inv, Size(9, 9), 3, 3);
+		dst = util.threshMask(src_inv, range, COLOR_BGR2HSV);
 	}
 
     /**

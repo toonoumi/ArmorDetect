@@ -203,6 +203,21 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 	return pair<HSVRange, bool>(cand, calibrated);
 }
 
+
+Mat AD_Util::threshMask(Mat& frame, HSVRange& range, unsigned int code) 
+{
+	Mat mask;
+
+	if(code <= COLOR_COLORCVT_MAX)
+		cvtColor(frame, frame, code);
+		
+	Scalar lower (range.LowH, range.LowS, range.LowV);
+	Scalar upper (range.HighH, range.HighS, range.HighV);			
+	inRange(frame, lower, upper, mask);
+	
+	return mask;
+}
+
 Matvector AD_Util::threshMask(Matvector& frames, HSVRange& range)
 {
 	Matvector frames_hsv (bgrToHSV(frames, true)), masks;

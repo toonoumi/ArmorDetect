@@ -183,6 +183,8 @@ public:
    */
   std::pair<HSVRange, bool> find_Blue_HSVRange(std::vector<Mat> frames);
 
+Mat threshMask(Mat& frame, HSVRange& range, unsigned int code = COLOR_COLORCVT_MAX + 1); 
+
   /**
    * Converts images from RGB/BGR to HSV color format, applies a custom threshold, and
    * returns the resulting binary images. In other words, each image will be
