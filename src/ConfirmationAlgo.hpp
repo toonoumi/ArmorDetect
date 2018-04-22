@@ -103,6 +103,7 @@ bool contains_circle(Mat&src){
     }
     thresholding(src, src);
     vector<vector<Point>> contours;
+    vector<vector<Point> > contours;
     findContours(src, contours, RETR_LIST, CHAIN_APPROX_NONE);
     for(int i=0;i<contours.size();i++){
         if(contours[i].size()<20){

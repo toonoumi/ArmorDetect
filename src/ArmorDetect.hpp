@@ -16,6 +16,7 @@
 #define DEBUG 	1
 #define CAMERA	0
 //#define COMM_PORT_NOT_CONNECTED 1
+#define COMM_PORT_NOT_CONNECTED 1
 
 
 /** @function main */
