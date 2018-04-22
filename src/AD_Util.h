@@ -3,7 +3,7 @@
 //  ArmorDetect
 //														Dates
 //  Created by: Jason Lu			10/12/17.
-//			Edited: Frank Eyenga 	12/17/2017
+//			Edited: Frank Eyenga 	03/13/18.
 //
 
 
@@ -21,21 +21,16 @@
 // Default values for Blue and Red HSV range
 #define BLUE_HUE_LOW   	75
 #define BLUE_HUE_HIGH	130
-#define BLUE_SAT_LOW   	200
-#define BLUE_SAT_HIGH	255
-#define BLUE_VAL_LOW	200
-#define BLUE_VAL_HIGH 	255
-#define BLUE_SAT_MIN   	85
-#define BLUE_VAL_MIN   	50
+#define CYAN_HUE_LOW   	0
+#define CYAN_HUE_HIGH	8
 
-#define RED_HUE_LOW   	0
-#define RED_HUE_HIGH	8
-#define RED_SAT_LOW   	200
-#define RED_SAT_HIGH    255
-#define RED_VAL_LOW   	200
-#define RED_VAL_HIGH  	255
-#define RED_SAT_MIN   	85
-#define RED_VAL_MIN   	50
+#define SAT_LOW   		200
+#define SAT_HIGH		255
+#define VAL_LOW			200
+#define VAL_HIGH 		255
+#define SAT_MIN   		85
+#define VAL_MIN   		50
+
 
 #define U_FLOOR(x)   ( (x) < 0 ? 0 : (x) )
 #define U8_CEILING(x)  ( (x) > 255 ? 255 : (x) )
@@ -80,6 +75,8 @@ typedef struct _HSVRange HSVRange;
 enum DirectionHint {
   MOVE_UP = 1, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
 };
+
+enum Color { BlUE = 0, RED };
 
 class AD_Util {
 public:
@@ -132,6 +129,7 @@ public:
    */
   bool draw_Arrow(DirectionHint hint, Mat&frame);
 
+  bool calibrateRange(const std::vector<Mat>& frames, HSVRange& range, Color clr);
   /**
    * This will find exposure adjustment that our program needs to make to the camera
    * for it to clearly see objects. Hint: calculate several frames and average the results.
@@ -169,7 +167,7 @@ public:
    * @return
    *      The correct HSV range to identify red objects
    */
-	std::pair<HSVRange, bool> find_Red_HSVRange(std::vector<Mat> frames);
+HSVRange findHSVRange(std::vector<Mat>& frames, Color clr);
 
   /**
    * This will find correct HSV range for identifying the concept "BLUE objects"
@@ -181,9 +179,7 @@ public:
    * @return
    *      The correct HSV range to identify blue objects
    */
-  std::pair<HSVRange, bool> find_Blue_HSVRange(std::vector<Mat> frames);
 
-Mat threshMask(Mat& frame, HSVRange& range, unsigned int code = COLOR_COLORCVT_MAX + 1); 
 
   /**
    * Converts images from RGB/BGR to HSV color format, applies a custom threshold, and
@@ -191,14 +187,14 @@ Mat threshMask(Mat& frame, HSVRange& range, unsigned int code = COLOR_COLORCVT_M
    * converted and it's pixels will be checked against the given range. Every
    * pixel who's HSV values are within that range will be set(1), all others will be
    * cleared (0). These binary images are referred to as "mask."
-   * @param frames
-   *       A vector of Mat images formated in the RGB/BGR color space
+   * @param frame
+   *       A Mat images formated in the RGB/BGR color space
    * @param
    *      The range of HSV value that will be used to threshold the images
    * @return
    *      A vector of binary Mats that resulted from the threshold operation
    */
-  std::vector<Mat> threshMask(std::vector<Mat>& frames, HSVRange& range);
+Mat threshMask(Mat& frame, HSVRange& range, unsigned int code = COLOR_COLORCVT_MAX + 1); 
 
 
 private:
@@ -216,7 +212,8 @@ private:
    * @return
    */
   std::vector<Mat> bgrToHSV(std::vector<Mat>& frames, bool blur);
-  std::vector<std::vector<Mat>> testFrames(const HSVRange& range, const std::vector<Mat>& frames);
+
+bool testFrame(const Mat frame, const HSVRange& range);
 
 };
 

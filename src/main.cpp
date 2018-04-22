@@ -25,43 +25,50 @@ int main(int argc, char** argv)
 	 int test_case = argv[1][0];
 	 char** test_cmd = argv + 2;
 
-	switch(test_case)
-	{
-		case '1':
-			checkArgsTest1(argc - 2 , test_cmd);
-			bool isRed;
-			isRed = (test_cmd[0][1] == 'r');
-
-			if (strcmp("-F", test_cmd[1]) == 0)
-			  test_FindHSVRange(test_cmd + 2, argc - 4, isRed);
-			else
-			  test_FindHSVRange(strtol(test_cmd[2], nullptr, 0), isRed);
-			 
-			 break;	 
-		case '2':
-			checkArgsTest1(argc - 2 , test_cmd);
-			HSVRange range{.LowH = 75, .HighH = 130,
-						  .LowS = 85, .HighS = 255,
-						  .LowV = 50, .HighV = 255};
-						  
-			if (strcmp("-F", test_cmd[0]) == 0)
-				test_threshMask(test_cmd, argc - 2, range);
-			else
-				test_threshMask(strtol(test_cmd[1], nullptr, 0), range);
-
-	}
-	  
+//	switch(test_case)
+//	{
+//		case '1':
+//			checkArgsTest1(argc - 2 , test_cmd);
+//			bool isRed;
+//			isRed = (test_cmd[0][1] == 'r');
+//
+//			if (strcmp("-F", test_cmd[1]) == 0)
+//			  test_FindHSVRange(test_cmd + 2, argc - 4, isRed);
+//			else
+//			  test_FindHSVRange(strtol(test_cmd[2], nullptr, 0), isRed);
+//			 
+//			 break;	 
+//		case '2':
+//			checkArgsTest2(argc - 2 , test_cmd);
+//			HSVRange range{.LowH = 75, .HighH = 130,
+//						  .LowS = 85, .HighS = 255,
+//						  .LowV = 50, .HighV = 255};
+//						  
+//			if (strcmp("-F", test_cmd[0]) == 0)
+//				test_threshMask(test_cmd, argc - 2, range);
+//			else
+//				test_threshMask(strtol(test_cmd[1], nullptr, 0), range);
+//
+//	}
+//	  
   return EXIT_SUCCESS;
 }
 
 void checkArgs(int argc, char* const argv[])
 {
+	if(argc == 1)
+	{
+		ArmorDetect ad;
+	  	exit(EXIT_SUCCESS);
+	}
+	
 	if(argc < 3)
 	{
 	  	cout << "Usage: ";
 	  	cout << argv[0] << "[Test Number] [Test command(s)\n]";
 	  	exit(EXIT_FAILURE);
 	}
+	
 } 
 
 void checkArgsTest1(int argc, char* const argv[])

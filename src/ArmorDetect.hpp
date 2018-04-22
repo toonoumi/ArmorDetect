@@ -11,7 +11,8 @@
 #include "AD_Util.h"
 #include "ConfirmationAlgo.hpp"
 
-#define DEBUG_MODE 1
+#define DEBUG 	1
+#define CAMERA	0
 
 
 /** @function main */
@@ -85,7 +86,7 @@ public:
     }
 
    
-void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
+void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {85,110,100,255,220,255})
 	{
 		AD_Util util;
 		Mat src_inv = ~src; // Invert the image
@@ -137,7 +138,7 @@ void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
                 break;
             }
             if(abs(rst[1]/rst[0])>1){  //if the slope is big enough
-#ifdef DEBUG_MODE
+#ifdef DEBUG
                 line(dst,Point(x1,y1),Point(x2,y2),Scalar(255,0,255),1);
 #endif
                 LightBar newLightBar;
@@ -370,7 +371,7 @@ void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
     ArmorDetect(){
         //VideoCapture cap("1749.mp4");
         //VideoCapture cap("IMG_6586.mp4");
-        VideoCapture cap(0);
+        VideoCapture cap(CAMERA);
         cap.set(CV_CAP_PROP_EXPOSURE, -13);
         //cap.set(CAP_PROP_BRIGHTNESS, 0);
         cap.set(CAP_PROP_FRAME_WIDTH , 640);
@@ -396,7 +397,7 @@ void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
             //convert the image into gray scale
             cvtColor(bluredImg,contoursImg,CV_BGR2GRAY);
             Mat binaryImg;
-            thresholding(bluredImg,binaryImg);
+            thresholdingRed(bluredImg,binaryImg);
             vector<vector<Point>> contours;
             //find contours of the threshold image
             findContours(binaryImg, contours, RETR_LIST, CHAIN_APPROX_NONE);
@@ -408,7 +409,7 @@ void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
             //draw pairs, and register identified armor
             drawPair(pairs, bluredImg);
             ar.update_timestamp();
-#ifdef DEBUG_MODE
+#ifdef DEBUG
             namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window", bluredImg );
             
@@ -420,9 +421,12 @@ void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,220,255})
             std::chrono::duration<double> elapsed = finish - start;
             std::cout << "Elapsed time: " << elapsed.count() << " s\n";
 #endif
-            waitKey(6);                                          // Wait for a keystroke in the window
+            char c = waitKey(6);                                          // Wait for a keystroke in the window
+            if(c == 27)
+            	break;
         }
-        //cout<<"RoboGrinders Wins"<<endl;
+        
+        cout<<"RoboGrinders Wins"<<endl;
         
     }
 };

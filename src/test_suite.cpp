@@ -209,10 +209,13 @@ void test_threshMask(char* images[], int sz, HSVRange& range)
 	  images_bgr.push_back(img);
 	}
 	
-	vector<Mat> masks = AD_Util().threshMask(images_bgr, range);
-	
-      for (const auto& mask : masks)
+      for (auto& img : images_bgr)
       {
+		  Mat mask;
+
+		  cvtColor(img, img, COLOR_BGR2HSV);
+		  mask = AD_Util().threshMask(img, range);
+//		  mask = AD_Util().threshMask(img, range, COLOR_BGR2HSV);
           namedWindow("Mask", WINDOW_NORMAL);
           imshow("Mask", mask);
 
@@ -235,26 +238,23 @@ void test_threshMask(int id, HSVRange& range)
 
   while (1)
   {
-      vector<Mat> frames;
-      for (Mat next_frame; frames.size() < 10;)
-      {
-          if (!cam.read(next_frame))
-              cout << "Error reading frame\n";
+	Mat frame;
+	
+	if (!cam.read(frame))
+	  cout << "Error reading frame\n";
 
-          frames.push_back(next_frame);
-      }
+	Mat mask;
+//	cvtColor(frame, frame, COLOR_BGR2HSV);
+//	mask = AD_Util().threshMask(frame, range);
+	mask = AD_Util().threshMask(frame, range, COLOR_BGR2HSV);
+	namedWindow("Mask", WINDOW_NORMAL);
+	imshow("Mask", mask);
 
-      frames = AD_Util().threshMask(frames, range);
-
-      for (const auto& mask : frames)
-      {
-          namedWindow("Mask", WINDOW_NORMAL);
-          imshow("Mask", mask);
-
-          char c = waitKey(0);
-          if (c == 27)
-              return;
-      }
+	char c = waitKey(5);
+	if (c == 27)
+	  return;
   }
+  
 }
+
 //End of file
