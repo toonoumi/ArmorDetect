@@ -33,135 +33,58 @@ float AD_Util::find_Exposure_Adjustment(Matvector frames){}
 
 float AD_Util::find_Temperature_Adjustment(Matvector frames){}
 
-std::pair<HSVRange, bool> AD_Util::find_Red_HSVRange(Matvector frames)
+bool AD_Util::test()
 {
-	// Previous HSVRange values that worked
-	static vector<HSVRange> previous;
-	// Convert to HSV
-	Matvector frames_hsv (bgrToHSV(frames, true));
-									 
-	// Try previously successful ranges first
-	for (const auto& range : previous)
-	{
-		vector<Matvector> results = testFrames(range, frames);
-	
-		if (results.front().size() >= (frames.size() * FRAMES_THRES))
-			return pair<HSVRange, bool>(range, true);
-	}
-
-
-	// Initialize default ranges to start with
-	HSVRange cand_low {.LowH = RED_HUE_LOW, .HighH = RED_HUE_HIGH, 
-				   		 .LowS = RED_SAT_LOW, .HighS = RED_SAT_HIGH, 
-				   		 .LowV = RED_VAL_LOW, .HighV = RED_VAL_HIGH };
-
-	HSVRange cand_upp {.LowH = 172, .HighH = 180, 
-				   		 .LowS = RED_SAT_LOW, .HighS = RED_SAT_HIGH, 
-				   		 .LowV = RED_VAL_LOW, .HighV = RED_VAL_HIGH };
-								 
-	Matvector test_frames (frames_hsv), passed, failed;
-	bool calibrated = false;
-	
-	#ifdef DEBUG
-		std::cout<< "starting range finder\n\n";
-		std::cout<< "# of Frames: " << frames.size() << "\n";
-		std::cout<< "# to pass: " << frames.size() * FRAMES_THRES << "\n";
-		int pass = 0;
-	#endif
-
-	// Try to lower end of the spectrum
-	while (!calibrated && ( cand_low.LowS > RED_SAT_MIN || cand_low.LowV > RED_VAL_MIN ))
-	{ 
-		vector<Matvector> results_low (testFrames(cand_low, test_frames));
-		passed.insert(passed.end(), results_low.front().begin(), results_low.front().end());
-		
-		#ifdef DEBUG
-			std::cout<< "--Pass #" << pass++ << "\n";					
-			std::cout<< "--Passing frames: " << passed.size() << "\n";
-		#endif
-		
-		if (passed.size() >= (frames.size() * FRAMES_THRES))
-		{ 
-			calibrated = true; 
-			previous.push_back(cand_low);
-		}
-		else
-		{
-			// Reduce value by predetermined percentage
-			cand_low.LowS -= TUNER_MEDIUM(255);
-			cand_low.LowV -= TUNER_COARSE(255);
-			test_frames = results_low.back();
-		} 
-		
-		#ifdef DEBUG
-			std::cout<< "--Low sat: "  << cand_low.LowS << "\n";
-			std::cout<< "--Low val: " << cand_low.LowV << "\n\n";
-		#endif
-																			
-	}									
-	
-	if(calibrated)
-		return pair<HSVRange, bool>(cand_low, calibrated);
-		
-	// Try upper end of sprectrum
-	while (!calibrated && ( cand_upp.LowS > RED_SAT_MIN || cand_upp.LowV > RED_VAL_MIN ))
-	{ 
-		vector<Matvector> results_upp (testFrames(cand_upp, test_frames));
-		passed.insert(passed.end(), results_upp.front().begin(), results_upp.front().end());
-		
-		#ifdef DEBUG
-			std::cout<< "--Pass #" << pass++ << "\n";					
-			std::cout<< "--Passing frames: " << passed.size() << "\n";
-		#endif
-		
-		if (passed.size() >= (frames.size() * FRAMES_THRES))
-		{ 
-			calibrated = true; 
-			previous.push_back(cand_upp);
-		}
-		else
-		{
-			// Reduce value by predetermined percentage
-			cand_upp.LowS -= TUNER_MEDIUM(255);
-			cand_upp.LowV -= TUNER_COARSE(255);
-			test_frames = results_upp.back();
-		} 
-		
-		#ifdef DEBUG
-			std::cout<< "--Low sat: "  << cand_upp.LowS << "\n";
-			std::cout<< "--Low val: " << cand_upp.LowV << "\n\n";
-		#endif
-																			
-	}
-								  
-	return pair<HSVRange, bool>(cand_upp, calibrated);
+    return true;
 }
 
-std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
+bool AD_Util::calibrateRange(const Matvector& frames, HSVRange& range, Color clr) 
 {
-	// Previous HSVRange values that worked
-	static vector<HSVRange> previous;
-	// Convert to HSV
-	Matvector frames_hsv (bgrToHSV(frames, true));
-									 
-	// Try previously successful ranges first
-	for (const auto& range : previous)
+	Matvector regions;
+
+	for(const auto frm: frames)
 	{
-		vector<Matvector> results = testFrames(range, frames);
+		Range r_rows = ROI_RANGE(frm.rows);
+		Range r_cols = ROI_RANGE(frm.cols);
+		Mat tmp (frm, r_rows, r_cols);
+		Mat roi;
+		tmp.copyTo(roi);
+		
+		if(clr == RED)
+			roi = ~roi;
 	
-		if (results.front().size() >= (frames.size() * FRAMES_THRES))
-			return pair<HSVRange, bool>(range, true);
+		cvtColor(roi, roi, COLOR_BGR2HSV);
+		regions.push_back(roi);
 	}
 
+	range = findHSVRange(regions, clr);
+	return (range.LowH >= 0);
+}
+
+HSVRange AD_Util::findHSVRange(Matvector& frames, const Color& clr)
+{
+	HSVRange cand;
+	size_t list_size = frames.size();
+	int passed = 0;
 
 	// Initialize default ranges to start with
-	HSVRange cand {.LowH = BLUE_HUE_LOW, .HighH = BLUE_HUE_HIGH, 
-								 .LowS = BLUE_SAT_LOW, .HighS = BLUE_SAT_HIGH, 
-								 .LowV = BLUE_VAL_LOW, .HighV = BLUE_VAL_HIGH };
-								 
-	Matvector test_frames (frames_hsv), passed, failed;
-	bool calibrated = false;
+	if(clr == RED)
+	{
+		cand.LowH = CYAN_HUE_LOW;
+		cand.HighH = CYAN_HUE_HIGH;
+	}
+	else 
+	{
+		cand.LowH = BLUE_HUE_LOW;
+		cand.HighH = BLUE_HUE_HIGH;
+	}
 	
+	
+	cand.LowS = SAT_LOW;
+	cand.HighS = SAT_HIGH;
+	cand.LowV = VAL_LOW;
+	cand.HighV = VAL_HIGH;
+
 	#ifdef DEBUG
 		std::cout<< "starting range finder\n\n";
 		std::cout<< "# of Frames: " << frames.size() << "\n";
@@ -169,55 +92,60 @@ std::pair<HSVRange, bool> AD_Util::find_Blue_HSVRange(Matvector frames)
 		int pass = 0;
 	#endif
 
-	while (!calibrated && ( cand.LowS > BLUE_SAT_MIN || cand.LowV > BLUE_VAL_MIN ))
+	while(cand.LowS > SAT_MIN && cand.LowV > VAL_MIN )
 	{ 
-		vector<Matvector> results (testFrames(cand, test_frames));
-		passed.insert(passed.end(), results.front().begin(), results.front().end());
+		// Reduce value by predetermined percentage
+		cand.LowS -= TUNER_MEDIUM(255);
+		cand.LowV -= TUNER_COARSE(255);
+
+		for(int i = 0; i < list_size; i++)
+		{
+			Mat tmp = frames[i];
+
+			// If test is successful, increment counter, swap with back and delete
+			if(testFrame(tmp, cand)) 
+			{
+				passed++;
+				frames[i] = frames.back();
+				frames.back() = tmp;
+				frames.pop_back();
+			}
+		}
 		
+		if(passed >= list_size * FRAMES_THRES)
+			return cand;
+			
 		#ifdef DEBUG
 			std::cout<< "--Pass #" << pass++ << "\n";					
-			std::cout<< "--Passing frames: " << passed.size() << "\n";
+			std::cout<< "--Passing frames: " << passed << "\n";
 		#endif
 		
-		if (passed.size() >= (frames.size() * FRAMES_THRES))
-		{ 
-			calibrated = true; 
-			previous.push_back(cand);
-		}
-		else
-		{
-			// Reduce value by predetermined percentage
-			cand.LowS -= TUNER_MEDIUM(255);
-			cand.LowV -= TUNER_COARSE(255);
-			test_frames = results.back();
-		} 
 		
 		#ifdef DEBUG
 			std::cout<< "--Low sat: "  << cand.LowS << "\n";
 			std::cout<< "--Low val: " << cand.LowV << "\n\n";
 		#endif
-																			
 	}									
-	 
-									  
-	return pair<HSVRange, bool>(cand, calibrated);
+	
+	return HSVRange {-1, -1, -1, -1, -1, -1};							  
+
 }
 
-Matvector AD_Util::threshMask(Matvector& frames, HSVRange& range)
+
+Mat AD_Util::threshMask(Mat& frame, HSVRange& range, unsigned int code) 
 {
-	Matvector frames_hsv (bgrToHSV(frames, true)), masks;
+	Mat mask;
+
+	if(code <= COLOR_COLORCVT_MAX)
+		cvtColor(frame, frame, code);
 		
-	for (const auto& frame : frames_hsv)
-	{
-		Mat mask;
-		Scalar lower (range.LowH, range.LowS, range.LowV);
-		Scalar upper (range.HighH, range.HighS, range.HighV);			
-		inRange(frame, lower, upper, mask);
-		masks.push_back(mask);	
-	}
+	Scalar lower (range.LowH, range.LowS, range.LowV);
+	Scalar upper (range.HighH, range.HighS, range.HighV);			
+	inRange(frame, lower, upper, mask);
 	
-	return masks;
+	return mask;
 }
+
 
 Matvector AD_Util::bgrToHSV(Matvector& frames, bool blur)
 {
@@ -237,70 +165,64 @@ Matvector AD_Util::bgrToHSV(Matvector& frames, bool blur)
 	return frames_hsv;
 }
 
-vector<Matvector> AD_Util::testFrames(const HSVRange& range, const Matvector& frames)
+bool AD_Util::testFrame(const Mat frame, const HSVRange& range)
 {
-	Matvector passed, failed;
-		
-	for (const auto& frame : frames)
-		{
-			// find pixels that match range
-			Mat mask;
-			Scalar lower (range.LowH, range.LowS, range.LowV);
-			Scalar upper (range.HighH, range.HighS, range.HighV);			
-			inRange(frame, lower, upper, mask);
-			
-			// use a predetermined area of the image for calibration
-			Range rows = ROI_RANGE(frame.rows);
-			Range cols = ROI_RANGE(frame.cols);
-			Mat roi = mask(rows, cols);
-			
-			uint32_t  pixelsfound = 0;
+	// use a predetermined area of the image for calibration
+	Range r_rows = ROI_RANGE(frame.rows);
+	Range r_cols = ROI_RANGE(frame.cols);
+	Mat roi (frame, r_rows, r_cols);
+	roi = ~roi;
 
-			// count the number of pixels found in ROI
-			for (unsigned int i = 0; i < roi.rows; i++)
-			{
-				uint8_t* row = roi.ptr<uint8_t>(i);
+	// find pixels that match range
+	Mat mask;
+	Scalar lower (range.LowH, range.LowS, range.LowV);
+	Scalar upper (range.HighH, range.HighS, range.HighV);			
+	inRange(roi, lower, upper, mask);
 	
-				for (unsigned int j = 0; j < roi.cols; j++)
-					if (row[j]) pixelsfound++; 
-			}
-			
-			#ifdef DEBUG
-				std::cout<< "\tPixels needed: " << roi.total() * PIXELS_THRES << "\n";
-				std::cout<< "\tPixels found: " << pixelsfound << "\n";			
-			#endif
-			
-			if (pixelsfound >= (roi.total() * PIXELS_THRES))
-				{ 
-					passed.push_back(frame); 
-					#ifdef	DEBUG
-						std::cout<< "\tPassed\n";					
-					#endif
-				}
-			else
-				{ 
-					failed.push_back(frame);	
-					#ifdef DEBUG
-						std::cout<< "\tfailed\n"; 										
-					#endif
-				}
-				
-			#ifdef DEBUG
-				namedWindow("Mask", WINDOW_NORMAL);
-				imshow("Mask", mask);
-				namedWindow("Image (HSV)", WINDOW_NORMAL);
-				imshow("Image (HSV)", frame);
+	int cols = mask.cols, rows = mask.rows, pixelsfound = 0;
+	
+	if(mask.isContinuous())
+	{
+		cols *= rows;
+		rows = 1;
+	}
 
-				waitKey(0);		
-			#endif							
-		}
-		
-		#ifdef DEBUG
-			destroyWindow("Mask");
-			destroyWindow("Image (HSV)");
+	// count the number of pixels found in ROI
+	for (unsigned int i = 0; i < rows; i++)
+	{
+		uint8_t* row = mask.ptr<uint8_t>(i);
+
+		for (unsigned int j = 0; j < cols; j++)
+			if (row[j]) 
+				pixelsfound++; 
+	}
+	
+	#ifdef DEBUG
+		std::cout<< "\tPixels needed: " << mask.total() * PIXELS_THRES << "\n";
+		std::cout<< "\tPixels found: " << pixelsfound << "\n";			
+
+		namedWindow("Mask", WINDOW_NORMAL);
+		imshow("Mask", mask);
+		namedWindow("Image (HSV)", WINDOW_NORMAL);
+		imshow("Image (HSV)", frame);
+
+		waitKey(0);		
+	
+		destroyWindow("Mask");
+		destroyWindow("Image (HSV)");
+	#endif
+	
+	if (pixelsfound >= (mask.total() * PIXELS_THRES))
+	{ 
+		#ifdef	DEBUG
+			std::cout<< "\tPassed\n";					
 		#endif
-		
-		return vector<Matvector>({passed, failed});
+		return true;
+	}
 
+	#ifdef DEBUG
+		std::cout<< "\tfailed\n"; 										
+	#endif
+	return false;
 }
 /* AD_Util_cpp */

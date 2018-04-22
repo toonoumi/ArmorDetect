@@ -91,8 +91,6 @@ public:
    */
   ~AD_Util();
 
-bool test();
-
   /**
    * This is to display a video or a image. Instead of using imshow
    * we will be using this function. It will organize the windows so that

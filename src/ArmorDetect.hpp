@@ -10,8 +10,12 @@
 //#include <unistd.h>
 #include "AD_Util.h"
 #include "ConfirmationAlgo.hpp"
+#include "RMVideoCapture.hpp"
+#include "CommPort.hpp"
 
-#define DEBUG_MODE 1
+#define DEBUG 	1
+#define CAMERA	0
+//#define COMM_PORT_NOT_CONNECTED 1
 
 
 /** @function main */
@@ -25,6 +29,13 @@
 using namespace std;
 using namespace cv;
 
+enum Video_Mode {
+    FRAME_NONE = 0,
+    FRAME_720_60 = 1,
+    FRAME_480_30 = 2,
+    FRAME_480_120 = 3
+};
+
 struct _LightBar{
     int minY;
     int maxY;
@@ -36,6 +47,11 @@ typedef struct _LightBar LightBar;
 class ArmorDetect{
 private:
     ArmorRegistery ar;
+
+#ifndef COMM_PORT_NOT_CONNECTED
+    CommPort comm;
+#endif
+    Point center=Point(640/2,480/2);
 public:
     /**
      *  To threshold the image into binary image
@@ -48,7 +64,7 @@ public:
      *          the range for thresholding hsv
      *
      */
-    void thresholding(Mat&src,Mat&dst,HSVRange range={75,130,0,255,240,255}){
+    void thresholding(Mat&src,Mat&dst,HSVRange range={75,130,0,255,150,255}){
         int iLowH = range.LowH;
         int iHighH = range.HighH;
         
@@ -67,7 +83,7 @@ public:
         cvtColor(src, imgGray, COLOR_BGR2GRAY);
         //因为我们读取的是彩色图，直方图均衡化需要在HSV空间做
         split(imgHSV, hsvSplit);
-        equalizeHist(hsvSplit[2],hsvSplit[2]);
+        //equalizeHist(hsvSplit[2],hsvSplit[2]);
         merge(hsvSplit,imgHSV);
         Mat imgThresholded,imgThresholded2,imgThresholded3;
         
@@ -85,6 +101,15 @@ public:
     }
 
    
+void thresholdingRed(Mat&src,Mat&dst,HSVRange range = {80,100,0,255,200,255})
+	{
+		AD_Util util;
+		Mat src_inv = ~src; // Invert the image
+
+		GaussianBlur(src_inv, src_inv, Size(9, 9), 3, 3);
+		dst = util.threshMask(src_inv, range, COLOR_BGR2HSV);
+	}
+
     /**
      *  To draw the detected lightbars on the frame, and register the valid lightbars.
      *
@@ -128,7 +153,7 @@ public:
                 break;
             }
             if(abs(rst[1]/rst[0])>1){  //if the slope is big enough
-#ifdef DEBUG_MODE
+#ifdef DEBUG
                 line(dst,Point(x1,y1),Point(x2,y2),Scalar(255,0,255),1);
 #endif
                 LightBar newLightBar;
@@ -235,10 +260,10 @@ public:
      */
      vector<vector<LightBar>> pairing(vector<LightBar> allLightBars){
          vector<vector<LightBar>> rtn;
-         int verticalOffset=30;
-         float slopeOffset=1000;
+         int verticalOffset=50;
+         float slopeOffset=5000;
          //float constantOffset=50000;
-         int differenceOffset=20;
+         int differenceOffset=50;
 
         for(int i=0;i<allLightBars.size();i++){
             if(allLightBars[i].paired){
@@ -349,8 +374,30 @@ public:
                 //ar.register_armor(newArmor);
             }*/
         }
+        ar.getPriorityTarget();
         vector<ArmorUnit> armors=ar.get_registered_armor();
+
         drawRegisteredArmor(armors, dst);
+
+#ifndef COMM_PORT_NOT_CONNECTED
+        sendDifference(armors);
+#endif
+
+    }
+
+    void sendDifference(vector<ArmorUnit> items){
+#ifndef COMM_PORT_NOT_CONNECTED
+        for(int i=0;i<items.size();i++){
+            if(items[i].status== LOCKED_ON){
+                Point p((items[i].p1.x+items[i].p2.x)/2,(items[i].p1.y+items[i].p2.y)/2);
+                Point pd(p.x-center.x,-(p.y-center.y));
+                comm.sendDifference(pd);
+                cout<<"UART sent: "<<pd.x<<" "<<pd.y<<endl;
+                return;
+            }
+        }
+        comm.sendDifference(Point(0,0));
+#endif
     }
     
     
@@ -361,14 +408,22 @@ public:
     ArmorDetect(){
         //VideoCapture cap("1749.mp4");
         //VideoCapture cap("IMG_6586.mp4");
-        VideoCapture cap(0);
-        cap.set(CV_CAP_PROP_EXPOSURE, -13);
+        /*VideoCapture cap(CAMERA);
+        cap.set(CV_CAP_PROP_EXPOSURE, -4);
         //cap.set(CAP_PROP_BRIGHTNESS, 0);
         cap.set(CAP_PROP_FRAME_WIDTH , 640);
          cap.set(CAP_PROP_FRAME_HEIGHT , 480);
         //cap.set(CV_CAP_PROP_FOURCC ,CV_FOURCC('M', 'J', 'P', 'G') );
         cap.set(CV_CAP_PROP_FPS , 120);
-        //cap.set(CAP_PROP_TEMPERATURE  , -100);
+        //cap.set(CAP_PROP_TEMPERATURE  , -100)*/;
+        RMVideoCapture cap("/dev/video0", 3);
+
+
+            cap.setVideoFormat(640, 480, 1);
+            cap.setExposureTime(0, 60);//settings->exposure_time);
+            cap.setVideoFPS(60);
+            cap.startStream();
+            cap.info();
         while(1){
             Mat image;
             cap>>image;
@@ -385,7 +440,7 @@ public:
             Mat bluredImg;
             bluredImg=image;//TODO: preprocessing bluring absent
             //convert the image into gray scale
-            cvtColor(bluredImg,contoursImg,CV_BGR2GRAY);
+
             Mat binaryImg;
             thresholding(bluredImg,binaryImg);
             vector<vector<Point>> contours;
@@ -399,7 +454,7 @@ public:
             //draw pairs, and register identified armor
             drawPair(pairs, bluredImg);
             ar.update_timestamp();
-#ifdef DEBUG_MODE
+#ifdef DEBUG
             namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
             imshow( "Display window", bluredImg );
             
@@ -411,9 +466,12 @@ public:
             std::chrono::duration<double> elapsed = finish - start;
             std::cout << "Elapsed time: " << elapsed.count() << " s\n";
 #endif
-            waitKey(6);                                          // Wait for a keystroke in the window
+            char c = waitKey(6);                                          // Wait for a keystroke in the window
+            if(c == 27)
+            	break;
         }
-        //cout<<"RoboGrinders Wins"<<endl;
+        
+        cout<<"RoboGrinders Wins"<<endl;
         
     }
 };

@@ -14,6 +14,8 @@
 #include <fstream>
 #include <stack>
 #include <chrono>
+#include <queue>
+#include <vector>
 #ifndef ConfirmationAlgo_h
 #define ConfirmationAlgo_h
 
@@ -133,6 +135,24 @@ struct _ArmorUnit{
     bool varified=false; //if it contains 66 percent of more confirmation, it is true.
     LockonStatus status = INVALID;
     uint64_t timestamp=0;
+    int num = 0;
+    _ArmorUnit(){}
+   _ArmorUnit(Point p1,Point p2,int confirmation, bool varified, LockonStatus status, uint64_t timestamp):p1(p1),p2(p2),confirmation(confirmation),varified(varified),status(status),timestamp(timestamp) {}
+
+
+};
+struct cmp{
+    bool operator()(_ArmorUnit A, _ArmorUnit B)
+    {
+        if (A.status == B.status)
+            return (abs(A.p2.x - A.p1.x)*(A.p2.y - A.p1.y) < abs(B.p2.x - B.p1.x)*(B.p2.y - B.p1.y));
+        else if (A.status == INVALID && B.status == VALID)
+            return true;
+        //else if (A.status != LOCKED_ON && B.status == LOCKED_ON)
+            //return true;
+        else return false;
+    }
+
 };
 typedef struct _ArmorUnit ArmorUnit;
 
@@ -196,7 +216,7 @@ private:
      *          the index of the current registery that the armor unit matched to
      */
     int match_to_registery(ArmorUnit item){
-        const int max_score = 250;
+        const int max_score = 125;
         int *scores = new int[armorUnitList.size()];
         for(int i=0;i<armorUnitList.size();i++){
             int difference1 = getDistance(item.p1,armorUnitList[i].p1);
@@ -279,6 +299,45 @@ public:
             clean_invalid_entry();
         }
     }
+    void getPriorityTarget()
+    {
+        if (armorUnitList.empty()) {
+
+        }
+        else
+        {
+            int i = 1;
+            bool valid = false;
+            for (auto & it : armorUnitList)
+            {
+                if (it.status != INVALID)
+                {
+                    valid = true;
+                }
+                it.num = i;
+                i++;
+            }
+            if (valid == true)
+            {
+                priority_queue<_ArmorUnit, std::vector<_ArmorUnit>, cmp> pq;
+                for (auto & it : armorUnitList)
+                {
+                    pq.push(it);
+                }
+                for (auto & it : armorUnitList)
+                {
+                    if (pq.top().num == it.num)
+                    {
+                        it.status = LOCKED_ON;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+    }
+
 };
 
 
