@@ -1,9 +1,12 @@
 # Ignore cmake output
 build/
+/**/mkflBuild/
+
+# Ignore kevin's back up folder :p
+bkup/
 
 # Ignore CMakeList.txt
 /**/CMakeLists.txt
-src/.DS_Store
-.DS_Store
-.DS_Store
-.DS_Store
+
+# Ignore Mac files
+/**/.DS_Store
