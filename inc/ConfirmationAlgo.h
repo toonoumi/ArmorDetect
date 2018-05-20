@@ -27,10 +27,7 @@
 /* ************************************************************************** */
 /* Section: Types                                                             */
 /* ************************************************************************** */
-
-/*
- to record the lockon status for the lockon functionality.
- */
+//to record the lock-on status for the lock-on functionality.
 enum LockonStatus {
   INVALID, VALID, LOCKED_ON, URGENT
 };

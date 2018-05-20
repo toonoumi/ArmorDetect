@@ -40,7 +40,6 @@ using cv::Mat;
 
 /* ************************************************************************** */
 /* Section: Function Definitions                                              */
-
 /* ************************************************************************** */
 RMVideoCapture::RMVideoCapture(const char* device, int size_buffer) : video_path(device)
 {
