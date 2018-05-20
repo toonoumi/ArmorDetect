@@ -2,7 +2,7 @@
 build/
 /**/mkflBuild/
 
-# Ignore kevin's back up folder :p
+# Ignore Jason's back up folder :p
 bkup/
 
 # Ignore CMakeList.txt
